@@ -1,0 +1,427 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="page">
+
+    <!-- Breadcrumb + Header -->
+    <div class="breadcrumb"><a href="/">Home</a> > Ramp Calculator</div>
+    <header class="hero">
+      <div class="eyebrow">Tool</div>
+      <h1>Ramp Calculator</h1>
+      <p class="lede">
+        Enter step height and choose a slope ratio to get ramp length, angle,
+        and quick product suggestions.
+      </p>
+    </header>
+
+    <!-- ======================== TWO COLUMN WRAPPER ======================== -->
+    <div class="two-col">
+
+      <!-- ========== LEFT COLUMN (40%) ========== -->
+      <div class="left-col">
+
+        <section class="calculator-section" id="ramp-calculator">
+          <div class="calc-header">🧮 Ramp Calculator</div>
+
+          <div class="calc-grid">
+            <div>
+              <label for="rise">Step Height</label>
+              <input id="rise" type="number" min="0" step="0.1" placeholder="e.g. 6" />
+            </div>
+
+            <div>
+              <label for="unit">Unit</label>
+              <select id="unit">
+                <option value="in">Inches (default)</option>
+                <option value="cm">Centimeters</option>
+                <option value="mm">Millimeters</option>
+                <option value="m">Meters</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="slope">Choose Slope Ratio (Run : Rise)</label>
+          <select id="slope">
+            <option value="12">1:12 - ♿ Manual Wheelchair</option>
+            <option value="10">1:10 - 👵 Elderly / Walkers</option>
+            <option value="8">1:8 - ⚡ Powered Wheelchair</option>
+            <option value="6">1:6 - 👨‍🦽 Assistant Pushed</option>
+            <option value="4">1:4 - 🛒 Vehicle / Trolley</option>
+            <option value="custom">Custom</option>
+          </select>
+
+          <input id="customRatio" class="custom" type="number"
+            min="0" step="0.1" placeholder="Enter custom ratio (e.g. 14)" />
+
+          <button id="calc-btn" class="calculate-btn">Calculate</button>
+
+          <div id="result" class="result-box">
+            <div class="result-main">
+              <div>
+                <p class="label">Ramp length</p>
+                <p class="value"><span id="length-ft">-</span> ft</p>
+                <p class="sub">(<span id="length-m">-</span> m)</p>
+              </div>
+
+              <div>
+                <p class="label">Incline angle</p>
+                <p class="value" id="angle">-°</p>
+              </div>
+
+              <div>
+                <p class="label">Slope ratio</p>
+                <p class="value" id="ratio">1:-</p>
+              </div>
+            </div>
+
+            <div id="result-msg" class="result-msg">
+              Enter values to see recommendations.
+            </div>
+          </div>
+
+          <p class="note">
+            ADA/WHO: 1:12 for public manual wheelchair ramps. Check local codes.
+          </p>
+        </section>
+
+        <!-- IMAGE BELOW CALCULATOR -->
+        <div class="image-wrap calc-image">
+          <img
+            src="https://blog.trueassistech.com/wp-content/uploads/2025/08/ChatGPT-Image-Aug-11-2025-01_44_38-PM.jpg"
+            alt="Ramp length slope diagram"
+          />
+        </div>
+      </div>
+
+      <!-- ========== RIGHT COLUMN (60%) ========== -->
+      <div class="right-col">
+
+        <section class="content-section">
+
+          <h2>🚧 What Is a Ramp & Why Use a Ramp Calculator?</h2>
+          <p>
+            A ramp is a gently sloped surface that helps people move between two different levels —
+            especially where stairs would be a barrier. Ramps are essential for:
+          </p>
+
+          <ul>
+            <li>♿ Persons with disabilities (PwDs)</li>
+            <li>👴 Seniors or people using walkers</li>
+            <li>👨‍🦽 Wheelchair users (manual or powered)</li>
+            <li>🛒 Loading trolleys or delivery carts</li>
+          </ul>
+
+          <p><strong>But here’s the challenge:</strong><br />
+          How do you know how long a ramp should be for a specific step height?<br />
+          Too steep — it’s unsafe. Too long — it wastes space.</p>
+
+          <p>That’s where a Ramp Calculator helps!</p>
+
+          <h2>💡 What Is a Ramp Calculator?</h2>
+          <p>
+            A ramp calculator is a free online tool that tells you exactly how long your ramp
+            should be based on:
+          </p>
+          <ul>
+            <li>🔼 Height of the step or threshold</li>
+            <li>👤 Type of user (manual wheelchair, elderly, powered chair)</li>
+          </ul>
+
+          <p>With just a few inputs, it automatically gives you the ramp length and incline angle — so your ramp is both safe and easy to use.</p>
+
+          <h2>🧭 How to Use the Ramp Calculator</h2>
+          <p><strong>1️⃣ Enter Step Height</strong><br />
+            Input the vertical height you want to cover in:
+          </p>
+          <ul>
+            <li>Inches (default)</li>
+            <li>Centimeters (cm)</li>
+            <li>Millimeters (mm)</li>
+            <li>Meters (m)</li>
+          </ul>
+
+          <p><strong>2️⃣ Choose Ramp Type / Slope Ratio</strong></p>
+          <ul>
+            <li>1:12 ➤ Ideal for manual wheelchair (ADA standard)</li>
+            <li>1:10 ➤ Good for elderly and walkers</li>
+            <li>1:8 ➤ For powered wheelchairs</li>
+            <li>1:6 ➤ Caregiver-assisted use</li>
+            <li>1:4 ➤ Used for vehicle ramps or trolleys</li>
+            <li>🔧 Custom ➤ Define your own slope ratio</li>
+          </ul>
+
+          <h2>📘 How Does Ramp Calculation Work?</h2>
+
+          <h3>🔢 1. Ramp Length Formula</h3>
+          <p><strong>Ramp Length = Step Height × Slope Ratio</strong></p>
+
+          <h3>📏 2. What Is a Slope Ratio?</h3>
+          <p>
+            <strong>Slope Ratio = Rise : Run</strong><br /><br />
+            Rise = Height of the step<br />
+            Run = Horizontal distance the ramp must travel
+          </p>
+          <p>Example: <strong>1:12</strong> means for every 1 unit of height, the ramp must be 12 units long.</p>
+
+          <h3>📐 3. Incline Angle</h3>
+          <p>
+            <strong>Incline Angle (in degrees) = arctangent (rise ÷ run)</strong>
+          </p>
+          <p>
+            Example:<br />
+            Rise = 12 in, Run = 144 in → Angle = tan⁻¹(12 / 144) = <strong>4.76°</strong><br />
+            A lower angle (under 5°) means a gentler, safer ramp.
+          </p>
+
+          <h2>📏 Standard Guidelines for Ramp Slopes</h2>
+
+          <table class="std-table">
+            <tr>
+              <th>🌍 Standard Body</th>
+              <th>📐 Slope Ratio</th>
+              <th>📝 Notes</th>
+            </tr>
+            <tr>
+              <td>ADA (USA)</td>
+              <td>1:12</td>
+              <td>Most widely accepted for manual wheelchairs</td>
+            </tr>
+            <tr>
+              <td>CPWD (India)</td>
+              <td>1:12 (Ideal), 1:10 (Practical)</td>
+              <td>Used in Indian buildings and smart cities</td>
+            </tr>
+            <tr>
+              <td>WHO Guidelines</td>
+              <td>1:12</td>
+              <td>Global guidance for accessible environments</td>
+            </tr>
+            <tr>
+              <td>UK Equality Act</td>
+              <td>1:15 (Best), 1:12 (Minimum)</td>
+              <td>Public and commercial ramps</td>
+            </tr>
+          </table>
+
+          <h2>✅ Conclusion</h2>
+          <p>
+            Whether it’s for a home entrance, clinic, or public building — designing the right
+            ramp is crucial. Using a Ramp Calculator ensures:
+          </p>
+
+          <ul>
+            <li>✔️ The slope is safe and comfortable for all users</li>
+            <li>✔️ You follow international and Indian accessibility norms</li>
+            <li>✔️ You save time and prevent costly mistakes</li>
+          </ul>
+
+          <p>No guessing. Just accurate, accessible ramp planning — anytime, anywhere.</p>
+
+        </section>
+
+      </div>
+
+    </div>
+    <!-- ======================== END TWO COLUMN WRAPPER ======================== -->
+
+  </div>
+</Layout>
+
+<!-- ======================== JAVASCRIPT CALCULATOR ======================== -->
+<script type="module">
+  const riseEl = document.getElementById("rise");
+  const unitEl = document.getElementById("unit");
+  const slopeEl = document.getElementById("slope");
+  const customRatioEl = document.getElementById("customRatio");
+  const lengthFtEl = document.getElementById("length-ft");
+  const lengthMEl = document.getElementById("length-m");
+  const angleEl = document.getElementById("angle");
+  const ratioEl = document.getElementById("ratio");
+  const resultMsg = document.getElementById("result-msg");
+  const btn = document.getElementById("calc-btn");
+
+  function toInches(value, unit) {
+    switch (unit) {
+      case "cm": return value / 2.54;
+      case "mm": return value / 25.4;
+      case "m": return value * 39.37;
+      default: return value;
+    }
+  }
+
+  slopeEl.addEventListener("change", () => {
+    const showCustom = slopeEl.value === "custom";
+    customRatioEl.style.display = showCustom ? "block" : "none";
+  });
+
+  function compute() {
+    const riseVal = parseFloat(riseEl.value);
+    const unit = unitEl.value;
+    const slopeVal = slopeEl.value;
+    const customVal = parseFloat(customRatioEl.value);
+
+    if (!riseVal || riseVal <= 0) {
+      resultMsg.innerHTML = "❌ Enter a valid step height.";
+      lengthFtEl.textContent = lengthMEl.textContent = "-";
+      angleEl.textContent = "-°"; ratioEl.textContent = "1:-";
+      return;
+    }
+
+    let slopeRatio = slopeVal === "custom" ? customVal : parseFloat(slopeVal);
+    if (!slopeRatio || slopeRatio <= 0) {
+      resultMsg.innerHTML = "❌ Enter a valid slope ratio.";
+      return;
+    }
+
+    const riseInches = toInches(riseVal, unit);
+    const lengthInches = riseInches * slopeRatio;
+    const lengthFeet = lengthInches / 12;
+    const lengthMeters = lengthInches * 0.0254;
+    const angleDeg = Math.atan(riseInches / lengthInches) * (180 / Math.PI);
+
+    lengthFtEl.textContent = lengthFeet.toFixed(2);
+    lengthMEl.textContent = lengthMeters.toFixed(2);
+    angleEl.textContent = `${angleDeg.toFixed(1)}°`;
+    ratioEl.textContent = `1:${slopeRatio}`;
+
+    if (lengthFeet > 6) {
+      resultMsg.innerHTML = "⚠️ Portable ramps are typically up to 6 ft. Longer runs may need fixed installs and safety checks.";
+    } else {
+      resultMsg.innerHTML = `
+        🛒 Recommended ramps:<br />
+        📦 <a href="https://shop.trueassistech.com/products/ramplus-portable-suitcase-ramps?sku_id=48125157" target="_blank">RamPlus – Suitcase Ramp</a><br />
+        🧳 <a href="https://shop.trueassistech.com/products/ramplus-portable-split-ramps?sku_id=60319935" target="_blank">RamPlus – Split Ramps</a><br />
+        🚪 <a href="https://shop.trueassistech.com/products/ramplus-threshold-ramp?sku_id=60319954" target="_blank">RamPlus – Threshold Ramp</a><br />
+        🌍 <a href="https://shop.trueassistech.com/products/roller-ramps-imported?sku_id=60319972" target="_blank">Roller Ramps – Imported</a>
+      `;
+    }
+  }
+
+  btn.addEventListener("click", compute);
+  riseEl.addEventListener("input", compute);
+  slopeEl.addEventListener("input", compute);
+  unitEl.addEventListener("change", compute);
+  customRatioEl.addEventListener("input", compute);
+  compute();
+</script>
+
+<!-- ======================== CSS ======================== -->
+<style>
+
+  .page { max-width: 1280px; margin: 0 auto; padding: 48px 20px; }
+
+  /* ---------- Two Column Layout ---------- */
+  .two-col {
+    display: flex;
+    gap: 26px;
+  }
+  .left-col { width: 40%; }
+  .right-col { width: 60%; }
+
+  @media (max-width: 900px) {
+    .two-col { flex-direction: column; }
+    .left-col, .right-col { width: 100%; }
+  }
+
+  .content-section h2 { margin-top: 28px; }
+
+  .std-table {
+    width: 100%;
+    margin-top: 14px;
+    border-collapse: collapse;
+  }
+  .std-table th, .std-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+
+  /* --- CLEAN MODERN RAMP CALCULATOR BOX --- */
+
+.calculator-section {
+  background: #f7f2ff;
+  border: 1px solid #e3d5f7;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 26px rgba(80, 40, 125, 0.12);
+}
+
+.calculator-section input,
+.calculator-section select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #c7b3e8;
+  background: #ffffff;
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+#calc-btn {
+  width: 100%;
+  margin-top: 18px;
+  background: #4b2a8a;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+#calc-btn:hover {
+  background: #3b2070;
+}
+
+/* --- IMAGE FIT INSIDE CALCULATOR LEFT COLUMN --- */
+.calc-image {
+  margin-top: 16px;
+}
+
+.calc-image img {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* --- RESULT BOX CLEANED --- */
+.result-box {
+  background: #fff;
+  border: 1px solid #e2d9f4;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 16px;
+}
+
+.result-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+.result-main .value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #4b2a8a;
+}
+
+/* Reduce calculator width to look clean */
+.left-col {
+  width: 38%;
+  padding-right: 18px;
+}
+
+.right-col {
+  width: 62%;
+  padding-left: 18px;
+}
+
+
+</style>
