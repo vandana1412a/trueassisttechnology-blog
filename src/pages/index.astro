@@ -1,11 +1,242 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+const latest = posts[0];
+const others = posts.slice(1);
 ---
 
 <Layout>
-	<Welcome />
+  <main class="page">
+    <nav class="topnav">
+      <div class="brand">TrueAssist Technology</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/ramp-calculator">Ramp calculator</a>
+        <a href="/blog/ramp-calculator">Latest post</a>
+        <a href="https://www.trueassistech.com/" target="_blank" rel="noopener">Main site</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">TrueAssist Technology</div>
+      <h1>Trusted AI & accessibility updates</h1>
+      <p class="lede">
+        Highlights, tools, and notes on building reliable assistive experiences. Start with the latest post below or
+        browse all articles.
+      </p>
+    </header>
+
+    {latest ? (
+      <section class="latest">
+        <div>
+          <p class="eyebrow">Latest post</p>
+          <h2>{latest.data.title}</h2>
+          <p class="muted">{latest.data.description}</p>
+          <div class="meta">
+            <span>{new Date(latest.data.pubDate).toLocaleDateString()}</span>
+            {latest.data.tags && (
+              <span class="tags">
+                {latest.data.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </span>
+            )}
+          </div>
+          <a class="btn" href={`/blog/${latest.slug}`}>Read post</a>
+        </div>
+      </section>
+    ) : (
+      <section class="latest empty">
+        <h2>No posts yet</h2>
+        <p class="muted">Add markdown files to src/content/blog to see them here.</p>
+      </section>
+    )}
+
+    <section class="grid">
+      <div class="grid-head">
+        <h3>All posts</h3>
+        <p class="muted">Browse the rest of the updates and tools.</p>
+      </div>
+      <div class="cards">
+        {posts.map((post) => (
+          <article class="card">
+            <p class="eyebrow small">{new Date(post.data.pubDate).toLocaleDateString()}</p>
+            <h4>{post.data.title}</h4>
+            <p class="muted">{post.data.description}</p>
+            {post.data.tags && (
+              <div class="tags">
+                {post.data.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            )}
+            <a class="link" href={`/blog/${post.slug}`}>Read →</a>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 42px 18px 88px;
+  }
+  .topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 14px 30px rgba(59, 31, 95, 0.12);
+    backdrop-filter: blur(6px);
+    margin-bottom: 14px;
+  }
+  .brand {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--primary-2);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: color 140ms ease, background 140ms ease;
+  }
+  .nav-links a:hover {
+    color: var(--primary-2);
+    background: rgba(59, 31, 95, 0.08);
+  }
+  .hero {
+    background: linear-gradient(135deg, rgba(59, 31, 95, 0.96), rgba(76, 43, 118, 0.94));
+    color: #fff;
+    padding: 26px;
+    border-radius: 18px;
+    box-shadow: 0 18px 48px rgba(59, 31, 95, 0.18);
+  }
+  .hero h1 {
+    margin: 6px 0 10px;
+    font-size: clamp(30px, 4vw, 40px);
+  }
+  .lede {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 760px;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    font-weight: 800;
+    color: #d9c8f0;
+    margin: 0 0 6px;
+  }
+  .latest {
+    margin-top: 20px;
+    background: #f4effb;
+    border: 1px solid #e5d9f3;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 16px 32px rgba(59, 31, 95, 0.08);
+  }
+  .latest.empty {
+    text-align: center;
+  }
+  .latest h2 {
+    margin: 6px 0 6px;
+    font-size: 26px;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 8px 0 14px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 12px 28px rgba(59, 31, 95, 0.16);
+  }
+  .grid {
+    margin-top: 26px;
+  }
+  .grid-head h3 {
+    margin: 0 0 4px;
+  }
+  .grid-head p {
+    margin: 0;
+  }
+  .cards {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 12px 26px rgba(59, 31, 95, 0.08);
+  }
+  .card h4 {
+    margin: 2px 0 8px;
+  }
+  .muted {
+    color: var(--muted);
+  }
+  .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    padding: 6px 10px;
+    background: rgba(59, 31, 95, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 12px;
+  }
+  .link {
+    display: inline-flex;
+    margin-top: 10px;
+    color: var(--primary-2);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  @media (max-width: 620px) {
+    .page {
+      padding: 28px 14px 64px;
+    }
+    .hero {
+      padding: 22px;
+    }
+  }
+</style>
