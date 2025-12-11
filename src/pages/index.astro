@@ -14,8 +14,8 @@ const others = posts.slice(1);
     <nav class="topnav">
       <div class="brand">TrueAssist Technology</div>
       <div class="nav-links">
-        <a href="/">Blog Home</a>
-        <a href="/ramp-calculator">Ramp Calculator</a>
+        <a href=".">Blog Home</a>
+        <a href="ramp-calculator">Ramp Calculator</a>
         <a href="https://www.trueassistech.com/" target="_blank" rel="noopener">Main Site</a>
         <a href="mailto:info@trueassistech.com">Contact Us</a>
       </div>
@@ -46,7 +46,7 @@ const others = posts.slice(1);
               </span>
             )}
           </div>
-          <a class="btn" href={latest.slug === 'ramp-calculator' ? '/ramp-calculator' : `/blog/${latest.slug}`}>Read post</a>
+          <a class="btn" href={latest.slug === 'ramp-calculator' ? 'ramp-calculator' : `blog/${latest.slug}`}>Read post</a>
         </div>
       </section>
     ) : (
@@ -74,7 +74,7 @@ const others = posts.slice(1);
                 ))}
               </div>
             )}
-            <a class="link" href={post.slug === 'ramp-calculator' ? '/ramp-calculator' : `/blog/${post.slug}`}>Read →</a>
+            <a class="link" href={post.slug === 'ramp-calculator' ? 'ramp-calculator' : `blog/${post.slug}`}>Read →</a>
           </article>
         ))}
       </div>
