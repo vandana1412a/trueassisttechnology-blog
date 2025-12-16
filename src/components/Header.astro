@@ -1,0 +1,145 @@
+---
+const { variant = "solid" } = Astro.props;
+const isTransparent = variant === "transparent";
+---
+
+<header class:list={["site-header", isTransparent ? "transparent" : "solid"]}>
+  <div class="header-bar page-shell">
+    <a class="logo" href="https://www.trueassistech.com/">
+      <img src="/logo.png" alt="TrueAssist Technology" />
+    </a>
+
+    <div class="header-actions">
+      <div class="search">
+        <input type="search" name="search" placeholder="Search blog" aria-label="Search blog" />
+      </div>
+    </div>
+
+    <details class="nav-toggle">
+      <summary aria-label="Toggle navigation" role="button">
+        <span class="hamburger" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="menu-text">Menu</span>
+      </summary>
+      <nav class="nav-drawer" aria-label="Primary navigation mobile">
+        <div class="mobile-search">
+          <input type="search" name="search-mobile" placeholder="Search blog" aria-label="Search blog" />
+        </div>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .site-header.solid { background: #fff; border-bottom: 1px solid var(--border); }
+  .site-header.transparent { background: transparent; border: none; }
+
+  .header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .logo { display: inline-flex; align-items: center; }
+  .logo img { height: 52px; width: auto; display: block; }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .search input {
+    padding: 0.6rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    min-width: 220px;
+  }
+
+  .nav-toggle {
+    display: none;
+    position: relative;
+  }
+
+  .nav-toggle summary {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .nav-toggle summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .hamburger {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+    background: var(--text-heading);
+    border-radius: 999px;
+    transition: transform 140ms ease;
+  }
+
+  .menu-text {
+    font-weight: 700;
+    color: var(--text-heading);
+  }
+
+  .nav-toggle[open] summary {
+    background: rgba(11, 94, 215, 0.08);
+  }
+
+  .nav-drawer {
+    margin-top: 0.75rem;
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  .mobile-search input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .nav-drawer details { margin-bottom: 0.35rem; }
+
+  @media (max-width: 900px) {
+    .header-actions { display: none; }
+
+    .nav-toggle {
+      display: block;
+      margin-left: auto;
+    }
+
+    .header-bar {
+      padding: 0.85rem 0.75rem;
+    }
+  }
+</style>

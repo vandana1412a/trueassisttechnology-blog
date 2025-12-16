@@ -1,0 +1,82 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" aria-label="Footer">
+  <div class="footer-row logo-row">
+    <img src="/logo.png" alt="TrueAssist Technology" />
+  </div>
+  <div class="footer-row text-row">
+    <p>TrueAssist Technology Pvt Ltd</p>
+  </div>
+  <div class="footer-row menu-row" aria-label="Footer navigation">
+    <a href="https://www.trueassistech.com/">Home</a>
+    <span>/</span>
+    <a href="https://www.trueassistech.com/about-us">About Us</a>
+    <span>/</span>
+    <a href="/">Our Blog</a>
+    <span>/</span>
+    <a href="https://shop.trueassistech.com/">Products</a>
+    <span>/</span>
+    <a href="https://www.trueassistech.com/contact-us">Contact</a>
+  </div>
+  <div class="footer-row copyright-row">
+    <p>© {year} TrueAssist Technology. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #fff;
+    color: var(--primary);
+    margin-top: 3rem;
+    padding: 1.75rem 1rem 1.5rem;
+    text-align: center;
+  }
+
+  .footer-row {
+    margin-bottom: 0.75rem;
+  }
+
+  .logo-row img {
+    height: 70px;
+    width: auto;
+  }
+
+  .text-row p {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .menu-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--primary);
+    font-weight: 700;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .menu-row a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .menu-row a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+
+  .menu-row span {
+    color: var(--secondary);
+  }
+
+  .copyright-row p {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 600;
+  }
+</style>

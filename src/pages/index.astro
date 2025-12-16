@@ -1,242 +1,260 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
-);
-const latest = posts[0];
-const others = posts.slice(1);
+const posts = [
+  {
+    title: "Ramp Calculator",
+    description: "Ramp slope ratio calculator to size safe wheelchair ramps with incline angles.",
+    link: "/ramp-calculator",
+    date: "Feb 02, 2024"
+  },
+  {
+    title: "Wheelchair Ramps",
+    description: "How to choose, install, and maintain ramps for comfort and safety.",
+    link: "#",
+    date: "Jan 24, 2024"
+  },
+  {
+    title: "Designing safe wheelchair ramps in compact spaces",
+    description: "Slope, landings, and surface guidance to help you meet ADA intent without overbuilding.",
+    link: "#",
+    date: "Jan 12, 2024"
+  },
+  {
+    title: "Setup checklist for portable ramp deployments",
+    description: "Transport, stabilize, and secure your ramp to reduce sway and protect users.",
+    link: "#",
+    date: "Dec 30, 2023"
+  },
+  {
+    title: "Choosing the right ramp surface for weather",
+    description: "Material comparisons for traction, drainage, and seasonal maintenance.",
+    link: "#",
+    date: "Dec 18, 2023"
+  }
+];
 ---
 
-<Layout>
-  <main class="page">
-    <nav class="topnav">
-      <div class="brand">TrueAssist Technology</div>
-      <div class="nav-links">
-        <a href=".">Blog Home</a>
-        <a href="ramp-calculator">Ramp Calculator</a>
-        <a href="https://www.trueassistech.com/" target="_blank" rel="noopener">Main Site</a>
-        <a href="mailto:info@trueassistech.com">Contact Us</a>
+<BaseLayout
+  title="TrueAssist Technology | Accessibility & Mobility Insights"
+  description="Guides, ramp design tips, and assistive technology knowledge from TrueAssist Technology."
+  headerVariant="solid"
+>
+  <section class="content-grid" id="articles" aria-label="Latest blog articles">
+    <div class="main-col">
+      <div class="posts-head">
+        <h2>Latest Articles</h2>
+        <p class="muted">Practical guidance to support safer, more inclusive mobility.</p>
       </div>
-    </nav>
-
-    <header class="hero">
-      <div class="eyebrow">TrueAssist Technology</div>
-      <h1>Trusted AI & accessibility updates</h1>
-      <p class="lede">
-        Highlights, tools, and notes on building reliable assistive experiences. Start with the latest post below or
-        browse all articles.
-      </p>
-    </header>
-
-    {latest ? (
-      <section class="latest">
-        <div>
-          <p class="eyebrow">Latest post</p>
-          <h2>{latest.data.title}</h2>
-          <p class="muted">{latest.data.description}</p>
-          <div class="meta">
-            <span>{new Date(latest.data.pubDate).toLocaleDateString()}</span>
-            {latest.data.tags && (
-              <span class="tags">
-                {latest.data.tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </span>
-            )}
-          </div>
-          <a class="btn" href={latest.slug === 'ramp-calculator' ? 'ramp-calculator' : `blog/${latest.slug}`}>Read post</a>
-        </div>
-      </section>
-    ) : (
-      <section class="latest empty">
-        <h2>No posts yet</h2>
-        <p class="muted">Add markdown files to src/content/blog to see them here.</p>
-      </section>
-    )}
-
-    <section class="grid">
-      <div class="grid-head">
-        <h3>All posts</h3>
-        <p class="muted">Browse the rest of the updates and tools.</p>
-      </div>
-      <div class="cards">
+      <div class="posts-list">
         {posts.map((post) => (
-          <article class="card">
-            <p class="eyebrow small">{new Date(post.data.pubDate).toLocaleDateString()}</p>
-            <h4>{post.data.title}</h4>
-            <p class="muted">{post.data.description}</p>
-            {post.data.tags && (
-              <div class="tags">
-                {post.data.tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            )}
-            <a class="link" href={post.slug === 'ramp-calculator' ? 'ramp-calculator' : `blog/${post.slug}`}>Read →</a>
+          <article class="post-row">
+            <div class="thumb" aria-hidden="true"></div>
+            <div class="post-body">
+              <p class="post-date">{post.date}</p>
+              <h3>{post.title}</h3>
+              <p class="muted">{post.description}</p>
+              <a class="read-more" href={post.link}>Read more</a>
+            </div>
           </article>
         ))}
       </div>
-    </section>
-  </main>
-</Layout>
+    </div>
+
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="sidebar-card contact-card">
+        <h3>Contact Us</h3>
+        <div class="contact-item">
+          <span aria-hidden="true">📍</span>
+          <p>
+            C-102 Devasandra Industrial Estate,<br />
+            Mahadevapura, Bengaluru,<br />
+            Karnataka – 560048
+          </p>
+        </div>
+        <div class="contact-item">
+          <span aria-hidden="true">📞</span>
+          <a class="contact-link" href="https://wa.me/919900306443" aria-label="WhatsApp TrueAssist at +91 99003 06443">+91 99003 06443</a>
+        </div>
+        <div class="contact-item">
+          <span aria-hidden="true">✉</span>
+          <a class="contact-link" href="mailto:hello@trueassistech.com">hello@trueassistech.com</a>
+        </div>
+        <div class="contact-actions">
+          <a class="btn whatsapp full" href="https://wa.me/919900306443" aria-label="Chat on WhatsApp">WhatsApp</a>
+          <a class="btn primary full" href="mailto:hello@trueassistech.com">Email</a>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <h3>Popular Posts</h3>
+        <ul class="sidebar-list">
+          <li><a href="/ramp-calculator">Ramp Calculator</a></li>
+          <li><a href="#">Wheelchair Ramps</a></li>
+          <li><a href="#">Portable ramp checklist</a></li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+</BaseLayout>
 
 <style>
-  .page {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 42px 18px 88px;
+  .posts-head h2 {
+    margin: 0 0 0.25rem;
+    color: #451e5d;
   }
-  .topnav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.9);
+
+  .posts-head p {
+    margin: 0 0 1rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0 3rem;
+  }
+
+  .main-col {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .posts-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0.75rem;
     border: 1px solid var(--border);
-    border-radius: 14px;
-    box-shadow: 0 14px 30px rgba(59, 31, 95, 0.12);
-    backdrop-filter: blur(6px);
-    margin-bottom: 14px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    overflow: hidden;
   }
-  .brand {
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--primary-2);
+
+  .thumb {
+    background: linear-gradient(135deg, rgba(69, 30, 93, 0.08), rgba(69, 30, 93, 0.04));
   }
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
+
+  .post-body {
+    padding: 0.75rem 0.9rem;
   }
-  .nav-links a {
-    color: var(--text);
-    font-weight: 600;
-    text-decoration: none;
-    padding: 8px 10px;
-    border-radius: 10px;
-    transition: color 140ms ease, background 140ms ease;
-  }
-  .nav-links a:hover {
-    color: var(--primary-2);
-    background: rgba(59, 31, 95, 0.08);
-  }
-  .hero {
-    background: linear-gradient(135deg, rgba(59, 31, 95, 0.96), rgba(76, 43, 118, 0.94));
-    color: #fff;
-    padding: 26px;
-    border-radius: 18px;
-    box-shadow: 0 18px 48px rgba(59, 31, 95, 0.18);
-  }
-  .hero h1 {
-    margin: 6px 0 10px;
-    font-size: clamp(30px, 4vw, 40px);
-  }
-  .lede {
+
+  .post-date {
     margin: 0;
-    color: rgba(255, 255, 255, 0.92);
-    max-width: 760px;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
   }
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 12px;
-    font-weight: 800;
-    color: #d9c8f0;
-    margin: 0 0 6px;
+
+  .post-body h3 {
+    margin: 0 0 0.35rem;
+    color: #451e5d;
   }
-  .latest {
-    margin-top: 20px;
-    background: #f4effb;
-    border: 1px solid #e5d9f3;
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 16px 32px rgba(59, 31, 95, 0.08);
+
+  .read-more {
+    font-weight: 700;
+    color: #451e5d;
   }
-  .latest.empty {
-    text-align: center;
+
+  .read-more:hover {
+    color: var(--link-hover);
   }
-  .latest h2 {
-    margin: 6px 0 6px;
-    font-size: 26px;
+
+  .sidebar {
+    display: grid;
+    gap: 1rem;
   }
-  .meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 8px 0 14px;
-    color: var(--muted);
+
+  .sidebar-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .sidebar-list a {
+    color: #451e5d;
+    text-decoration: none;
     font-weight: 600;
   }
+
+  .sidebar-list a:hover {
+    color: var(--link-hover);
+  }
+
+  .contact-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-item p {
+    margin: 0;
+    color: #444;
+  }
+
+  .contact-link {
+    color: #451e5d;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .contact-link:hover { color: var(--link-hover); }
+
+  .contact-actions {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
   .btn {
     display: inline-flex;
     align-items: center;
-    padding: 12px 16px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn.full { width: 100%; }
+
+  .btn.primary {
+    background: #451e5d;
     color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    box-shadow: 0 12px 28px rgba(59, 31, 95, 0.16);
+    border-color: #451e5d;
   }
-  .grid {
-    margin-top: 26px;
+
+  .btn.whatsapp {
+    background: #25d366;
+    color: #0b3d19;
+    border: none;
   }
-  .grid-head h3 {
-    margin: 0 0 4px;
-  }
-  .grid-head p {
-    margin: 0;
-  }
-  .cards {
-    margin-top: 14px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 12px;
-  }
-  .card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 12px 26px rgba(59, 31, 95, 0.08);
-  }
-  .card h4 {
-    margin: 2px 0 8px;
-  }
-  .muted {
-    color: var(--muted);
-  }
-  .tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .tag {
-    padding: 6px 10px;
-    background: rgba(59, 31, 95, 0.08);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-weight: 700;
-    color: var(--primary);
-    font-size: 12px;
-  }
-  .link {
-    display: inline-flex;
-    margin-top: 10px;
-    color: var(--primary-2);
-    text-decoration: none;
-    font-weight: 700;
-  }
-  @media (max-width: 620px) {
-    .page {
-      padding: 28px 14px 64px;
+
+  @media (max-width: 960px) {
+    .content-grid {
+      grid-template-columns: 1fr;
     }
-    .hero {
-      padding: 22px;
+
+    .post-row {
+      grid-template-columns: 1fr;
     }
   }
 </style>

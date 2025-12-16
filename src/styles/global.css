@@ -1,0 +1,132 @@
+:root {
+  --primary: #451e5d;
+  --secondary: #818385;
+
+  --bg-main: #ffffff;
+  --bg-card: #ffffff;
+  --bg-footer: #f7f7f8;
+
+  --text-heading: #451e5d;
+  --text-body: #444;
+  --text-muted: #818385;
+  --link-hover: #2f1441;
+
+  --border: #d9d9db;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  --radius: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--bg-main);
+  color: var(--text-body);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-main);
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-heading);
+  margin: 0 0 0.4em;
+  line-height: 1.3;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(11, 94, 215, 0.15);
+}
+
+.page-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: rgba(11, 94, 215, 0.08);
+  color: var(--link-hover);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: -999px;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  z-index: 2000;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+}
