@@ -1,0 +1,85 @@
+---
+const { posts = [], heading = "Latest Articles" } = Astro.props;
+---
+
+<section class="posts-section" aria-label={heading}>
+  <div class="posts-head">
+    <h2>{heading}</h2>
+  </div>
+  <div class="posts-list">
+    {posts.map((post) => (
+      <article class="post-row">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="post-body">
+          <p class="post-date">{post.date}</p>
+          <h3>{post.title}</h3>
+          <p class="muted">{post.excerpt}</p>
+          <a class="read-more" href={post.link}>Read more</a>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .posts-section {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .posts-head h2 {
+    margin: 0 0 0.25rem;
+    color: #451e5d;
+  }
+
+  .posts-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .thumb {
+    background: linear-gradient(135deg, rgba(69, 30, 93, 0.08), rgba(69, 30, 93, 0.04));
+  }
+
+  .post-body {
+    padding: 0.75rem 0.9rem;
+  }
+
+  .post-date {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .post-body h3 {
+    margin: 0 0 0.35rem;
+    color: #451e5d;
+  }
+
+  .read-more {
+    font-weight: 700;
+    color: #451e5d;
+  }
+
+  .read-more:hover {
+    color: var(--link-hover);
+  }
+
+  @media (max-width: 960px) {
+    .post-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

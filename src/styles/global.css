@@ -57,6 +57,10 @@ p {
   margin: 0 0 1em;
 }
 
+.muted {
+  color: var(--text-muted);
+}
+
 ul,
 ol {
   margin: 0;

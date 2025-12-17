@@ -1,0 +1,66 @@
+---
+import { posts } from "./BlogData.astro";
+
+const { category, currentSlug } = Astro.props;
+const related = posts
+  .filter((post) => post.category === category && post.slug !== currentSlug)
+  .slice(0, 3);
+---
+
+{related.length ? (
+  <section class="related" aria-label="Related posts">
+    <h2>Related Posts</h2>
+    <div class="related-list">
+      {related.map((post) => (
+        <article class="related-card">
+          <h3>{post.title}</h3>
+          <p class="muted">{post.excerpt}</p>
+          <a class="read-more" href={post.link}>Read more</a>
+        </article>
+      ))}
+    </div>
+  </section>
+) : null}
+
+<style>
+  .related {
+    margin-top: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  .related h2 {
+    margin: 0 0 0.75rem;
+    color: #451e5d;
+  }
+
+  .related-list {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .related-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: #fff;
+  }
+
+  .related-card h3 {
+    margin: 0 0 0.35rem;
+    color: #451e5d;
+  }
+
+  .read-more {
+    font-weight: 700;
+    color: #451e5d;
+  }
+
+  .read-more:hover {
+    color: var(--link-hover);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { posts, categories } from "../../components/BlogData.astro";
+import PostList from "../../components/PostList.astro";
+
+const category = categories.find((item) => item.id === "products");
+const filtered = posts.filter((post) => post.category === "products");
+---
+
+<BaseLayout
+  title={`Products | TrueAssist Technology Blog`}
+  description={category?.description}
+  headerVariant="solid"
+>
+  <section class="category-hero">
+    <h1>{category?.title}</h1>
+    <p class="muted">{category?.description}</p>
+  </section>
+  <PostList posts={filtered} heading="Latest in Products" />
+</BaseLayout>
+
+<style>
+  .category-hero {
+    margin: 2rem 0 1rem;
+  }
+
+  .category-hero h1 {
+    margin: 0 0 0.35rem;
+    color: #451e5d;
+  }
+</style>

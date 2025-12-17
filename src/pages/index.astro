@@ -1,38 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const posts = [
-  {
-    title: "Ramp Calculator",
-    description: "Ramp slope ratio calculator to size safe wheelchair ramps with incline angles.",
-    link: "/ramp-calculator",
-    date: "Feb 02, 2024"
-  },
-  {
-    title: "Wheelchair Ramps",
-    description: "How to choose, install, and maintain ramps for comfort and safety.",
-    link: "#",
-    date: "Jan 24, 2024"
-  },
-  {
-    title: "Designing safe wheelchair ramps in compact spaces",
-    description: "Slope, landings, and surface guidance to help you meet ADA intent without overbuilding.",
-    link: "#",
-    date: "Jan 12, 2024"
-  },
-  {
-    title: "Setup checklist for portable ramp deployments",
-    description: "Transport, stabilize, and secure your ramp to reduce sway and protect users.",
-    link: "#",
-    date: "Dec 30, 2023"
-  },
-  {
-    title: "Choosing the right ramp surface for weather",
-    description: "Material comparisons for traction, drainage, and seasonal maintenance.",
-    link: "#",
-    date: "Dec 18, 2023"
-  }
-];
+import { posts } from "../components/BlogData.astro";
+import PostList from "../components/PostList.astro";
 ---
 
 <BaseLayout
@@ -42,42 +11,26 @@ const posts = [
 >
   <section class="content-grid" id="articles" aria-label="Latest blog articles">
     <div class="main-col">
-      <div class="posts-head">
-        <h2>Latest Articles</h2>
-        <p class="muted">Practical guidance to support safer, more inclusive mobility.</p>
-      </div>
-      <div class="posts-list">
-        {posts.map((post) => (
-          <article class="post-row">
-            <div class="thumb" aria-hidden="true"></div>
-            <div class="post-body">
-              <p class="post-date">{post.date}</p>
-              <h3>{post.title}</h3>
-              <p class="muted">{post.description}</p>
-              <a class="read-more" href={post.link}>Read more</a>
-            </div>
-          </article>
-        ))}
-      </div>
+      <PostList posts={posts} heading="Latest Articles" />
     </div>
 
     <aside class="sidebar" aria-label="Sidebar">
       <div class="sidebar-card contact-card">
         <h3>Contact Us</h3>
         <div class="contact-item">
-          <span aria-hidden="true">📍</span>
+          <span class="contact-icon" aria-hidden="true">A</span>
           <p>
             C-102 Devasandra Industrial Estate,<br />
             Mahadevapura, Bengaluru,<br />
-            Karnataka – 560048
+            Karnataka - 560048
           </p>
         </div>
         <div class="contact-item">
-          <span aria-hidden="true">📞</span>
+          <span class="contact-icon" aria-hidden="true">P</span>
           <a class="contact-link" href="https://wa.me/919900306443" aria-label="WhatsApp TrueAssist at +91 99003 06443">+91 99003 06443</a>
         </div>
         <div class="contact-item">
-          <span aria-hidden="true">✉</span>
+          <span class="contact-icon" aria-hidden="true">E</span>
           <a class="contact-link" href="mailto:hello@trueassistech.com">hello@trueassistech.com</a>
         </div>
         <div class="contact-actions">
@@ -98,15 +51,6 @@ const posts = [
 </BaseLayout>
 
 <style>
-  .posts-head h2 {
-    margin: 0 0 0.25rem;
-    color: #451e5d;
-  }
-
-  .posts-head p {
-    margin: 0 0 1rem;
-  }
-
   .content-grid {
     display: grid;
     grid-template-columns: 2.5fr 1fr;
@@ -117,51 +61,6 @@ const posts = [
   .main-col {
     display: grid;
     gap: 1rem;
-  }
-
-  .posts-list {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .post-row {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
-  .thumb {
-    background: linear-gradient(135deg, rgba(69, 30, 93, 0.08), rgba(69, 30, 93, 0.04));
-  }
-
-  .post-body {
-    padding: 0.75rem 0.9rem;
-  }
-
-  .post-date {
-    margin: 0;
-    color: var(--secondary);
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-
-  .post-body h3 {
-    margin: 0 0 0.35rem;
-    color: #451e5d;
-  }
-
-  .read-more {
-    font-weight: 700;
-    color: #451e5d;
-  }
-
-  .read-more:hover {
-    color: var(--link-hover);
   }
 
   .sidebar {
@@ -201,6 +100,19 @@ const posts = [
     gap: 0.5rem;
     align-items: center;
     margin-bottom: 0.5rem;
+  }
+
+  .contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: rgba(69, 30, 93, 0.1);
+    color: #451e5d;
+    font-weight: 700;
+    font-size: 0.9rem;
   }
 
   .contact-item p {

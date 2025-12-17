@@ -1,16 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import RelatedPosts from "../components/RelatedPosts.astro";
 
 const metaTitle = "Ramp Calculator | Ramp Slope Ratio Calculator | TrueAssist Technology";
 const metaDescription =
   "Ramp calculator to size wheelchair ramps using slope ratios. Calculate ramp length, incline angle, and find safe ramp options from TrueAssist Technology.";
+
+const currentSlug = "ramp-calculator";
+const category = "tools-calculators";
 ---
 
-<BaseLayout title={metaTitle} description={metaDescription}>
+<BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
   <section class="two-col">
     <div class="col calc-col" aria-labelledby="calc-title">
       <section id="ramp-calculator" class="calc-card" aria-label="Ramp calculator">
-        <h2 id="calc-title">Ramp Calculator – Find the Ideal Ramp Length</h2>
+        <h2 id="calc-title">Ramp Calculator - Find the Ideal Ramp Length</h2>
 
         <label for="stepHeight">Step Height:</label>
         <input type="number" id="stepHeight" placeholder="e.g. 6" />
@@ -98,10 +102,10 @@ function calculateRamp() {
   } else {
     message += `
       <br><strong>Recommended Ramps from TrueAssist:</strong><br />
-      <a href="https://shop.trueassistech.com/products/ramplus-portable-suitcase-ramps?sku_id=48125157" target="_blank">RamPlus – Suitcase Ramp</a><br />
-      <a href="https://shop.trueassistech.com/products/ramplus-portable-split-ramps?sku_id=60319935" target="_blank">RamPlus – Split Ramps</a><br />
-      <a href="https://shop.trueassistech.com/products/ramplus-threshold-ramp?sku_id=60319954" target="_blank">RamPlus – Threshold Ramp</a><br />
-      <a href="https://shop.trueassistech.com/products/roller-ramps-imported?sku_id=60319972" target="_blank">Roller Ramps – Imported</a>
+      <a href="https://shop.trueassistech.com/products/ramplus-portable-suitcase-ramps?sku_id=48125157" target="_blank">RamPlus - Suitcase Ramp</a><br />
+      <a href="https://shop.trueassistech.com/products/ramplus-portable-split-ramps?sku_id=60319935" target="_blank">RamPlus - Split Ramps</a><br />
+      <a href="https://shop.trueassistech.com/products/ramplus-threshold-ramp?sku_id=60319954" target="_blank">RamPlus - Threshold Ramp</a><br />
+      <a href="https://shop.trueassistech.com/products/roller-ramps-imported?sku_id=60319972" target="_blank">Roller Ramps - Imported</a>
     `;
   }
 
@@ -174,6 +178,8 @@ function calculateRamp() {
       </article>
     </div>
   </section>
+
+  <RelatedPosts category={category} currentSlug={currentSlug} />
 </BaseLayout>
 
 <style>
@@ -259,20 +265,6 @@ function calculateRamp() {
     margin: 0.15rem 0;
   }
 
-  .brand-block {
-    display: none;
-  }
-
-  .brand-inner h2 {
-    color: #451e5d;
-  }
-
-  .brand-copy {
-    margin: 0;
-    color: #444;
-    font-weight: 600;
-  }
-
   @media (max-width: 900px) {
     .two-col {
       grid-template-columns: 1fr;
@@ -280,7 +272,6 @@ function calculateRamp() {
   }
 
   @media (max-width: 640px) {
-    .hero,
     .content,
     .calc-card {
       padding: 1rem;
