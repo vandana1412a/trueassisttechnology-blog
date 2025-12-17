@@ -1,10 +1,13 @@
 ---
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <footer class="site-footer" aria-label="Footer">
   <div class="footer-row logo-row">
-    <img src={`${import.meta.env.BASE_URL}logo.png`} alt="TrueAssist Technology" />
+    <img src={`${base}logo.png`} alt="TrueAssist Technology" />
   </div>
   <div class="footer-row text-row">
     <p>TrueAssist Technology Pvt Ltd</p>
@@ -14,7 +17,7 @@ const year = new Date().getFullYear();
     <span>/</span>
     <a href="https://www.trueassistech.com/about-us">About Us</a>
     <span>/</span>
-    <a href="/">Our Blog</a>
+    <a href={base}>Our Blog</a>
     <span>/</span>
     <a href="https://shop.trueassistech.com/">Products</a>
     <span>/</span>

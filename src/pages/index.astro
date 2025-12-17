@@ -2,6 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { posts } from "../components/BlogData.astro";
 import PostList from "../components/PostList.astro";
+
+const sortedPosts = [...posts].sort(
+  (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+);
 ---
 
 <BaseLayout
@@ -11,7 +15,7 @@ import PostList from "../components/PostList.astro";
 >
   <section class="content-grid" id="articles" aria-label="Latest blog articles">
     <div class="main-col">
-      <PostList posts={posts} heading="Latest Articles" />
+      <PostList posts={sortedPosts} heading="Latest Articles" />
     </div>
 
     <aside class="sidebar" aria-label="Sidebar">

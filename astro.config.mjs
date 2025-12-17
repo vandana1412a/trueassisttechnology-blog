@@ -4,6 +4,6 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   srcDir: "src",
   outDir: "dist",
-  site: "https://vandana1412a.github.io/trueassisttechnology-blog",
+  site: "https://vandana1412a.github.io",
   base: "/trueassisttechnology-blog"
 });

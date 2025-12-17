@@ -1,17 +1,24 @@
 ---
+import { posts } from "./BlogData.astro";
+
 const { variant = "solid" } = Astro.props;
 const isTransparent = variant === "transparent";
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <header class:list={["site-header", isTransparent ? "transparent" : "solid"]}>
   <div class="header-bar page-shell">
     <a class="logo" href="https://www.trueassistech.com/">
-      <img src={`${import.meta.env.BASE_URL}logo.png`} alt="TrueAssist Technology" />
+      <img src={`${base}logo.png`} alt="TrueAssist Technology" />
     </a>
 
     <div class="header-actions">
       <div class="search">
-        <input type="search" name="search" placeholder="Search blog" aria-label="Search blog" />
+        <label class="sr-only" for="site-search">Search articles</label>
+        <input type="search" id="site-search" name="search" placeholder="Search articles…" aria-label="Search articles" />
+        <div class="search-results" id="search-results" role="listbox" aria-live="polite"></div>
       </div>
     </div>
 
@@ -51,6 +58,53 @@ const isTransparent = variant === "transparent";
     min-width: 220px;
   }
 
+  .search {
+    position: relative;
+  }
+
+  .search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+    display: none;
+    z-index: 40;
+  }
+
+  .search-results.active {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .search-item {
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+  }
+
+  .search-item:hover,
+  .search-item:focus-within {
+    border-color: var(--border);
+    background: rgba(69, 30, 93, 0.05);
+  }
+
+  .search-item h4 {
+    margin: 0 0 0.2rem;
+    font-size: 0.95rem;
+    color: #451e5d;
+  }
+
+  .search-item p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
   @media (max-width: 900px) {
     .header-bar {
       flex-direction: column;
@@ -67,3 +121,58 @@ const isTransparent = variant === "transparent";
     }
   }
 </style>
+
+<script is:inline>
+const basePath = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const posts = ${JSON.stringify(posts)};
+const searchInput = document.getElementById("site-search");
+const resultsEl = document.getElementById("search-results");
+
+const normalize = (value) => value.toLowerCase().trim();
+const toUrl = (url) => (url.startsWith("/") ? `${basePath}${url.replace(/^\//, "")}` : url);
+
+function renderResults(items) {
+  if (!items.length) {
+    resultsEl.innerHTML = "<div class='search-item'><p>No results found.</p></div>";
+    resultsEl.classList.add("active");
+    return;
+  }
+
+  resultsEl.innerHTML = items
+    .map(
+      (item) => `
+        <div class="search-item" role="option">
+          <a href="${toUrl(item.link)}">
+            <h4>${item.title}</h4>
+            <p>${item.excerpt}</p>
+          </a>
+        </div>
+      `
+    )
+    .join("");
+  resultsEl.classList.add("active");
+}
+
+searchInput?.addEventListener("input", (event) => {
+  const query = normalize(event.target.value);
+  if (!query) {
+    resultsEl.classList.remove("active");
+    resultsEl.innerHTML = "";
+    return;
+  }
+
+  const matches = posts.filter((post) => {
+    const haystack = `${post.title} ${post.excerpt} ${post.content}`.toLowerCase();
+    return haystack.includes(query);
+  });
+  renderResults(matches);
+});
+
+document.addEventListener("click", (event) => {
+  if (!resultsEl.contains(event.target) && event.target !== searchInput) {
+    resultsEl.classList.remove("active");
+  }
+});
+</script>

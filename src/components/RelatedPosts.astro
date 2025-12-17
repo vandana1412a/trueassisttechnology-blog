@@ -2,6 +2,10 @@
 import { posts } from "./BlogData.astro";
 
 const { category, currentSlug } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
 const related = posts
   .filter((post) => post.category === category && post.slug !== currentSlug)
   .slice(0, 3);
@@ -9,15 +13,25 @@ const related = posts
 
 {related.length ? (
   <section class="related" aria-label="Related posts">
-    <h2>Related Posts</h2>
-    <div class="related-list">
-      {related.map((post) => (
-        <article class="related-card">
-          <h3>{post.title}</h3>
-          <p class="muted">{post.excerpt}</p>
-          <a class="read-more" href={post.link}>Read more</a>
-        </article>
-      ))}
+    <div class="related-grid">
+      <div class="related-list">
+        <h2>Related Posts</h2>
+        {related.map((post) => (
+          <article class="related-card">
+            <h3>{post.title}</h3>
+            <p class="muted">{post.excerpt}</p>
+            <a class="read-more" href={withBase(post.link)}>Read more</a>
+          </article>
+        ))}
+      </div>
+      <aside class="contact-card" aria-label="Contact TrueAssist">
+        <h3>Contact TrueAssist</h3>
+        <p class="muted">Have a question about accessibility solutions? Reach out to our team.</p>
+        <div class="contact-actions">
+          <a class="btn whatsapp" href="https://wa.me/919900306443" aria-label="WhatsApp Us">WhatsApp Us</a>
+          <a class="btn email" href="mailto:hello@trueassistech.com">Email Us</a>
+        </div>
+      </aside>
     </div>
   </section>
 ) : null}
@@ -32,7 +46,13 @@ const related = posts
     box-shadow: var(--shadow);
   }
 
-  .related h2 {
+  .related-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 1.25rem;
+  }
+
+  .related-list h2 {
     margin: 0 0 0.75rem;
     color: #451e5d;
   }
@@ -40,7 +60,6 @@ const related = posts
   .related-list {
     display: grid;
     gap: 0.75rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   .related-card {
@@ -62,5 +81,57 @@ const related = posts
 
   .read-more:hover {
     color: var(--link-hover);
+  }
+
+  .contact-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    background: #f9f9f9;
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .contact-card h3 {
+    margin: 0;
+    color: #451e5d;
+  }
+
+  .contact-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 0.8rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .btn.whatsapp {
+    background: #25d366;
+    color: #0b3d19;
+  }
+
+  .btn.email {
+    background: #451e5d;
+    color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-actions {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

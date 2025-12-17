@@ -8,110 +8,133 @@ const metaDescription =
 
 const currentSlug = "ramp-calculator";
 const category = "tools-calculators";
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
   <section class="two-col">
     <div class="col calc-col" aria-labelledby="calc-title">
+      <div class="ramp-illustration">
+        <img src={`${base}images/ramp-diagram.png`} alt="Ramp diagram showing rise, run, and slope angle" />
+      </div>
+
       <section id="ramp-calculator" class="calc-card" aria-label="Ramp calculator">
-        <h2 id="calc-title">Ramp Calculator - Find the Ideal Ramp Length</h2>
+        <h2 id="calc-title">Ramp Calculator</h2>
 
-        <label for="stepHeight">Step Height:</label>
-        <input type="number" id="stepHeight" placeholder="e.g. 6" />
+        <div class="field-row">
+          <label for="riseInput">Rise (Step Height)</label>
+          <div class="inline-field">
+            <input type="number" id="riseInput" placeholder="e.g. 6" />
+            <select id="riseUnit" aria-label="Rise unit">
+              <option value="in">in</option>
+              <option value="cm">cm</option>
+              <option value="mm">mm</option>
+              <option value="ft">ft</option>
+              <option value="m">m</option>
+            </select>
+          </div>
+        </div>
 
-        <label for="unit" style="margin-top:12px; display:block;">Unit:</label>
-        <select id="unit">
-          <option value="in">Inches (default)</option>
-          <option value="cm">Centimeters</option>
-          <option value="mm">Millimeters</option>
-          <option value="m">Meters</option>
-        </select>
+        <div class="field-row">
+          <label for="userType">Ramp user type</label>
+          <select id="userType">
+            <option value="manual" data-ratio="12">Manual Wheelchair - 1:12</option>
+            <option value="elderly" data-ratio="10">Elderly / Walker - 1:10</option>
+            <option value="powered" data-ratio="8">Powered Wheelchair - 1:8</option>
+            <option value="caregiver" data-ratio="6">Caregiver Assisted - 1:6</option>
+            <option value="trolley" data-ratio="4">Trolley / Vehicle - 1:4</option>
+            <option value="custom">Custom Slope</option>
+          </select>
+        </div>
 
-        <label for="slopeRatio" style="margin-top:12px; display:block;">Choose or Enter Slope Ratio:</label>
-        <select id="slopeRatio">
-          <option value="12">1:12 - Manual Wheelchair</option>
-          <option value="10">1:10 - Elderly / Walkers</option>
-          <option value="8">1:8 - Powered Wheelchair</option>
-          <option value="6">1:6 - Assistant Pushed</option>
-          <option value="4">1:4 - Trolley / Vehicle Ramp</option>
-          <option value="custom">Custom</option>
-        </select>
+        <div class="user-type-visuals" aria-live="polite">
+          <div class="user-type-image active" data-type="manual">
+          <img src={`${base}images/type-manual.png`} alt="Manual wheelchair ramp reference" />
+          </div>
+          <div class="user-type-image" data-type="elderly">
+          <img src={`${base}images/type-elderly.png`} alt="Elderly or walker ramp reference" />
+          </div>
+          <div class="user-type-image" data-type="powered">
+          <img src={`${base}images/type-powered.png`} alt="Powered wheelchair ramp reference" />
+          </div>
+          <div class="user-type-image" data-type="caregiver">
+          <img src={`${base}images/type-caregiver.png`} alt="Caregiver assisted ramp reference" />
+          </div>
+          <div class="user-type-image" data-type="trolley">
+          <img src={`${base}images/type-trolley.png`} alt="Trolley or vehicle ramp reference" />
+          </div>
+        </div>
 
-        <input type="number" id="customRatio" placeholder="Enter custom ratio (e.g. 14)" style="width:100%; padding:8px; margin-top:6px; display:none;" />
+        <div class="field-row custom-ratio" id="customRatioWrap" hidden>
+          <label for="customRatio">Custom slope ratio (1:x)</label>
+          <input type="number" id="customRatio" placeholder="e.g. 14" />
+        </div>
 
-        <button onclick="calculateRamp()" class="calc-btn">Calculate</button>
+        <div class="field-row output-row">
+          <label for="slopeAngle">Slope (theta)</label>
+          <div class="inline-field">
+            <input id="slopeAngle" readonly />
+            <select disabled aria-label="Slope angle unit">
+              <option>degrees</option>
+            </select>
+          </div>
+        </div>
 
-        <div id="result" class="calc-result" aria-live="polite"></div>
+        <div class="field-row output-row">
+          <label for="lengthOutput">Ramp Length</label>
+          <div class="inline-field">
+            <input id="lengthOutput" readonly />
+            <select id="lengthUnit" aria-label="Ramp length unit">
+              <option value="ft">ft</option>
+              <option value="in">in</option>
+              <option value="cm">cm</option>
+              <option value="mm">mm</option>
+              <option value="m">m</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="calcButton" class="calc-btn" type="button" disabled>Calculate Ramp Length</button>
+        <p id="resultsError" class="error" role="alert" hidden></p>
       </section>
 
-      <script is:inline>
-function convertToInches(value, unit) {
-  switch (unit) {
-    case "cm":
-      return value / 2.54;
-    case "mm":
-      return value / 25.4;
-    case "m":
-      return value * 39.37;
-    default:
-      return value;
-  }
-}
-
-const ratioSelect = document.getElementById("slopeRatio");
-const customRatioInput = document.getElementById("customRatio");
-
-ratioSelect.addEventListener("change", function () {
-  const showCustom = this.value === "custom";
-  customRatioInput.style.display = showCustom ? "block" : "none";
-});
-
-function calculateRamp() {
-  const inputValue = parseFloat(document.getElementById("stepHeight").value);
-  const unit = document.getElementById("unit").value;
-  const ratioValue = ratioSelect.value;
-  const customRatio = parseFloat(customRatioInput.value);
-  const resultDiv = document.getElementById("result");
-
-  if (!inputValue || inputValue <= 0) {
-    resultDiv.innerHTML = "<span style='color:red;'>Please enter a valid step height.</span>";
-    return;
-  }
-
-  const slopeRatio = ratioValue === "custom" ? customRatio : parseFloat(ratioValue);
-  if (!slopeRatio || slopeRatio <= 0) {
-    resultDiv.innerHTML = "<span style='color:red;'>Please enter a valid slope ratio.</span>";
-    return;
-  }
-
-  const heightInInches = convertToInches(inputValue, unit);
-  const rampLengthInInches = heightInInches * slopeRatio;
-  const rampLengthFeet = rampLengthInInches / 12;
-  const rampLengthFeetRounded = rampLengthFeet.toFixed(2);
-  const rampLengthMeters = (rampLengthInInches * 0.0254).toFixed(2);
-  const angle = (Math.atan(heightInInches / rampLengthInInches) * (180 / Math.PI)).toFixed(1);
-
-  let message = `
-    <strong>Recommended Ramp Length:</strong> ${rampLengthFeetRounded} ft (${rampLengthMeters} m)<br />
-    <strong>Incline Angle:</strong> ${angle} degrees<br />
-    <strong>Used Slope Ratio:</strong> 1:${slopeRatio}
-  `;
-
-  if (rampLengthFeet > 6) {
-    message += "<br><span style='color:orange;'>Note: Portable ramps can be max 6 ft. Longer ramps may be unsafe or unusable.</span>";
-  } else {
-    message += `
-      <br><strong>Recommended Ramps from TrueAssist:</strong><br />
-      <a href="https://shop.trueassistech.com/products/ramplus-portable-suitcase-ramps?sku_id=48125157" target="_blank">RamPlus - Suitcase Ramp</a><br />
-      <a href="https://shop.trueassistech.com/products/ramplus-portable-split-ramps?sku_id=60319935" target="_blank">RamPlus - Split Ramps</a><br />
-      <a href="https://shop.trueassistech.com/products/ramplus-threshold-ramp?sku_id=60319954" target="_blank">RamPlus - Threshold Ramp</a><br />
-      <a href="https://shop.trueassistech.com/products/roller-ramps-imported?sku_id=60319972" target="_blank">Roller Ramps - Imported</a>
-    `;
-  }
-
-  resultDiv.innerHTML = message;
-}
-      </script>
+      <section class="recommendations" aria-label="Recommended ramps">
+        <p id="warning" class="warning" hidden>
+          Note: Portable ramps can be max 6 ft. Longer ramps may be unsafe or unusable.
+        </p>
+        <div id="products" class="product-carousel" hidden>
+          <a class="product-card" href="https://shop.trueassistech.com/products/ramplus-portable-suitcase-ramps?sku_id=48125157" target="_blank">
+            <div class="product-art" aria-hidden="true"></div>
+            <div>
+              <h4>RamPlus - Suitcase Ramp</h4>
+              <p class="muted">Compact and portable for daily use.</p>
+            </div>
+          </a>
+          <a class="product-card" href="https://shop.trueassistech.com/products/ramplus-portable-split-ramps?sku_id=60319935" target="_blank">
+            <div class="product-art" aria-hidden="true"></div>
+            <div>
+              <h4>RamPlus - Split Ramps</h4>
+              <p class="muted">Flexible split design for easy transport.</p>
+            </div>
+          </a>
+          <a class="product-card" href="https://shop.trueassistech.com/products/ramplus-threshold-ramp?sku_id=60319954" target="_blank">
+            <div class="product-art" aria-hidden="true"></div>
+            <div>
+              <h4>RamPlus - Threshold Ramp</h4>
+              <p class="muted">Smooth out small rises at entrances.</p>
+            </div>
+          </a>
+          <a class="product-card" href="https://shop.trueassistech.com/products/roller-ramps-imported?sku_id=60319972" target="_blank">
+            <div class="product-art" aria-hidden="true"></div>
+            <div>
+              <h4>Roller Ramps - Imported</h4>
+              <p class="muted">Durable ramps for heavy use.</p>
+            </div>
+          </a>
+        </div>
+      </section>
     </div>
 
     <div class="col content-col" aria-label="Ramp calculator guidance">
@@ -125,25 +148,25 @@ function calculateRamp() {
 
         <h3>How to Use the Ramp Calculator (step by step)</h3>
         <ul>
-          <li>Enter the step height in inches, centimeters, millimeters, or meters.</li>
-          <li>Select a recommended ramp ratio such as 1:12 for a wheelchair ramp slope calculator.</li>
-          <li>Use the custom ramp ratio calculator option if you follow a different code or site constraint.</li>
-          <li>Click Calculate to see ramp length in feet and meters plus incline angle.</li>
-          <li>Review the safe portable ramp guidance if the length exceeds 6 ft.</li>
+          <li>Enter the rise in inches, centimeters, millimeters, feet, or meters.</li>
+          <li>Select a user type to apply the recommended slope ratio.</li>
+          <li>If needed, pick Custom Slope and enter your own ratio.</li>
+          <li>Click Calculate to see ramp length and slope angle.</li>
+          <li>Review the recommended ramps when the length is within 6 ft.</li>
         </ul>
 
         <h3>Ramp Length Formula and Slope Ratio Explanation</h3>
         <p>
-          The ramp length formula is simple: <strong>Run = Rise x Ratio</strong>. If your step is 6 inches and you choose
+          The ramp length formula is simple: <strong>Run = Rise x Ratio</strong>. If your rise is 6 inches and you choose
           a 1:12 slope ratio, the required run is 72 inches (6 ft). The slope calculator for ramp uses this formula to
           show the result instantly.
         </p>
         <ul>
           <li><strong>1:12</strong> (manual wheelchair): gentle, ADA-aligned baseline.</li>
-          <li><strong>1:10</strong> (walkers/elderly): moderate slope for short rises.</li>
+          <li><strong>1:10</strong> (elderly / walker): moderate slope for short rises.</li>
           <li><strong>1:8</strong> (powered wheelchair): steeper but manageable for powered devices.</li>
-          <li><strong>1:6</strong> (assistant pushed): only for very short rises under supervision.</li>
-          <li><strong>1:4</strong> (trolley/vehicle): non-wheelchair contexts where traction is high.</li>
+          <li><strong>1:6</strong> (caregiver assisted): only for short rises with support.</li>
+          <li><strong>1:4</strong> (trolley / vehicle): non-wheelchair contexts with strong traction.</li>
         </ul>
 
         <h3>Incline Angle Calculation</h3>
@@ -194,6 +217,22 @@ function calculateRamp() {
     width: 100%;
   }
 
+  .ramp-illustration {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    height: 200px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .ramp-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .calc-card {
     width: 100%;
     padding: 20px;
@@ -201,13 +240,29 @@ function calculateRamp() {
     border-radius: 12px;
     border: 1px solid #818385;
     display: grid;
-    gap: 0.6rem;
+    gap: 0.85rem;
   }
 
   .calc-card h2 {
-    text-align: center;
+    text-align: left;
     color: #451e5d;
-    margin: 0 0 0.4rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .field-row {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .inline-field {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .output-row .inline-field {
+    grid-template-columns: 1fr 110px;
   }
 
   .calc-card input,
@@ -217,27 +272,104 @@ function calculateRamp() {
     border: 1px solid #818385;
     border-radius: 6px;
     font: inherit;
+    background: #fff;
+  }
+
+  .user-type-visuals {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .user-type-image {
+    display: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    padding: 0.75rem;
+  }
+
+  .user-type-image.active {
+    display: block;
+  }
+
+  .user-type-image img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .custom-ratio {
+    gap: 0.4rem;
   }
 
   .calc-btn {
-    margin-top: 0.6rem;
-    padding: 10px 16px;
+    margin-top: 0.3rem;
+    padding: 12px 16px;
     background-color: #451e5d;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
   }
 
-  .calc-btn:hover {
-    opacity: 0.95;
+  .calc-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
-  .calc-result {
-    margin-top: 0.75rem;
-    font-size: 15px;
-    line-height: 1.5;
+  .error {
+    color: #b42318;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .recommendations {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .warning {
+    margin: 0;
+    padding: 0.75rem;
+    border-radius: 10px;
+    background: #fff4d9;
+    color: #8a5a00;
+    font-weight: 600;
+  }
+
+  .product-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(220px, 1fr);
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .product-card {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    text-decoration: none;
+    scroll-snap-align: start;
+  }
+
+  .product-art {
+    height: 80px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(69, 30, 93, 0.1), rgba(69, 30, 93, 0.02));
+  }
+
+  .product-card h4 {
+    margin: 0;
+    color: #451e5d;
   }
 
   .content {
@@ -270,11 +402,138 @@ function calculateRamp() {
       grid-template-columns: 1fr;
     }
   }
-
-  @media (max-width: 640px) {
-    .content,
-    .calc-card {
-      padding: 1rem;
-    }
-  }
 </style>
+
+<script is:inline>
+const riseInput = document.getElementById("riseInput");
+const riseUnit = document.getElementById("riseUnit");
+const userType = document.getElementById("userType");
+const customRatioWrap = document.getElementById("customRatioWrap");
+const customRatio = document.getElementById("customRatio");
+const calcButton = document.getElementById("calcButton");
+const resultsError = document.getElementById("resultsError");
+
+const slopeAngle = document.getElementById("slopeAngle");
+const lengthOutput = document.getElementById("lengthOutput");
+const lengthUnit = document.getElementById("lengthUnit");
+
+const warning = document.getElementById("warning");
+const products = document.getElementById("products");
+const userTypeImages = document.querySelectorAll(".user-type-image");
+
+function convertToInches(value, unit) {
+  switch (unit) {
+    case "cm":
+      return value / 2.54;
+    case "mm":
+      return value / 25.4;
+    case "m":
+      return value * 39.37;
+    case "ft":
+      return value * 12;
+    default:
+      return value;
+  }
+}
+
+function convertFromInches(value, unit) {
+  switch (unit) {
+    case "cm":
+      return value * 2.54;
+    case "mm":
+      return value * 25.4;
+    case "m":
+      return value * 0.0254;
+    case "ft":
+      return value / 12;
+    default:
+      return value;
+  }
+}
+
+function updateUserType() {
+  const isCustom = userType.value === "custom";
+  const selected = userType.value;
+
+  userTypeImages.forEach((image) => {
+    image.classList.toggle("active", image.dataset.type === selected);
+  });
+
+  if (isCustom) {
+    customRatioWrap.hidden = false;
+  } else {
+    customRatioWrap.hidden = true;
+    customRatio.value = "";
+  }
+  updateButtonState();
+}
+
+function updateButtonState() {
+  const riseValue = parseFloat(riseInput.value);
+  const customValue = parseFloat(customRatio.value);
+  const isCustom = userType.value === "custom";
+  const validRise = riseValue > 0;
+  const validRatio = isCustom ? customValue > 0 : true;
+  calcButton.disabled = !(validRise && validRatio);
+}
+
+function showError(message) {
+  resultsError.textContent = message;
+  resultsError.hidden = false;
+  warning.hidden = true;
+  products.hidden = true;
+}
+
+function clearError() {
+  resultsError.hidden = true;
+}
+
+function calculate() {
+  const riseValue = parseFloat(riseInput.value);
+  const ratioValue = userType.selectedOptions[0].dataset.ratio;
+  const isCustom = userType.value === "custom";
+  const customValue = parseFloat(customRatio.value);
+
+  if (!riseValue || riseValue <= 0) {
+    showError("Please enter a valid rise value.");
+    return;
+  }
+
+  const slopeValue = isCustom ? customValue : parseFloat(ratioValue);
+  if (!slopeValue || slopeValue <= 0) {
+    showError("Please enter a valid slope ratio.");
+    return;
+  }
+
+  clearError();
+
+  const heightInInches = convertToInches(riseValue, riseUnit.value);
+  const rampLengthInInches = heightInInches * slopeValue;
+  const rampLengthFeet = rampLengthInInches / 12;
+  const angle = (Math.atan(heightInInches / rampLengthInInches) * (180 / Math.PI)).toFixed(2);
+
+  slopeAngle.value = angle;
+  lengthOutput.value = convertFromInches(rampLengthInInches, lengthUnit.value).toFixed(2);
+
+  if (rampLengthFeet > 6) {
+    warning.hidden = false;
+    products.hidden = true;
+  } else {
+    warning.hidden = true;
+    products.hidden = false;
+  }
+}
+
+function updateOutputs() {
+  if (calcButton.disabled) return;
+  calculate();
+}
+
+userType.addEventListener("change", updateUserType);
+riseInput.addEventListener("input", updateButtonState);
+customRatio.addEventListener("input", updateButtonState);
+lengthUnit.addEventListener("change", updateOutputs);
+calcButton.addEventListener("click", calculate);
+
+updateUserType();
+</script>
