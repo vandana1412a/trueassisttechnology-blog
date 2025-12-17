@@ -51,19 +51,19 @@ const base = import.meta.env.BASE_URL.endsWith("/")
 
         <div class="user-type-visuals" aria-live="polite">
           <div class="user-type-image active" data-type="manual">
-          <img src={`${base}images/type-manual.png`} alt="Manual wheelchair ramp reference" />
+          <img src={`${base}images/manual.png`} alt="Manual wheelchair ramp reference" />
           </div>
           <div class="user-type-image" data-type="elderly">
-          <img src={`${base}images/type-elderly.png`} alt="Elderly or walker ramp reference" />
+          <img src={`${base}images/elderly.png`} alt="Elderly or walker ramp reference" />
           </div>
           <div class="user-type-image" data-type="powered">
-          <img src={`${base}images/type-powered.png`} alt="Powered wheelchair ramp reference" />
+          <img src={`${base}images/powered.png`} alt="Powered wheelchair ramp reference" />
           </div>
           <div class="user-type-image" data-type="caregiver">
-          <img src={`${base}images/type-caregiver.png`} alt="Caregiver assisted ramp reference" />
+          <img src={`${base}images/caregiver.png`} alt="Caregiver assisted ramp reference" />
           </div>
           <div class="user-type-image" data-type="trolley">
-          <img src={`${base}images/type-trolley.png`} alt="Trolley or vehicle ramp reference" />
+          <img src={`${base}images/trolley.png`} alt="Trolley or vehicle ramp reference" />
           </div>
         </div>
 
@@ -222,15 +222,15 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     border-radius: 12px;
     background: #fff;
     box-shadow: var(--shadow);
-    height: 200px;
     margin-bottom: 1rem;
     overflow: hidden;
   }
 
   .ramp-illustration img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    display: block;
   }
 
   .calc-card {
@@ -294,7 +294,8 @@ const base = import.meta.env.BASE_URL.endsWith("/")
 
   .user-type-image img {
     width: 100%;
-    height: 140px;
+    height: auto;
+    max-height: 300px;
     object-fit: contain;
     display: block;
   }
