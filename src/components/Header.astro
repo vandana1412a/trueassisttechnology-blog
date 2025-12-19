@@ -15,11 +15,14 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     </a>
 
     <div class="header-actions">
-      <div class="search">
+      <form class="search" id="site-search-form" role="search">
         <label class="sr-only" for="site-search">Search articles</label>
-        <input type="search" id="site-search" name="search" placeholder="Search articles…" aria-label="Search articles" />
+        <div class="search-box">
+          <input type="search" id="site-search" name="search" placeholder="Search articles…" aria-label="Search articles" />
+          <button type="submit" id="site-search-btn" aria-label="Run search">Search</button>
+        </div>
         <div class="search-results" id="search-results" role="listbox" aria-live="polite"></div>
-      </div>
+      </form>
     </div>
 
   </div>
@@ -51,15 +54,39 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     gap: 0.75rem;
   }
 
+  .search {
+    position: relative;
+    min-width: 260px;
+  }
+
+  .search-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   .search input {
     padding: 0.6rem 0.85rem;
     border-radius: 999px;
     border: 1px solid var(--border);
-    min-width: 220px;
+    width: 100%;
   }
 
-  .search {
-    position: relative;
+  .search button {
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid #451e5d;
+    background: #451e5d;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .search button:hover,
+  .search button:focus-visible {
+    background: #5a2677;
+    border-color: #5a2677;
   }
 
   .search-results {
@@ -116,8 +143,12 @@ const base = import.meta.env.BASE_URL.endsWith("/")
       justify-content: flex-end;
     }
 
-    .search input {
-      min-width: 100%;
+    .search-box {
+      grid-template-columns: 1fr;
+    }
+
+    .search button {
+      width: 100%;
     }
   }
 </style>
@@ -129,9 +160,17 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
 const posts = ${JSON.stringify(posts)};
 const searchInput = document.getElementById("site-search");
 const resultsEl = document.getElementById("search-results");
+const searchForm = document.getElementById("site-search-form");
+const searchBtn = document.getElementById("site-search-btn");
+let fuseInstance = null;
 
 const normalize = (value) => value.toLowerCase().trim();
 const toUrl = (url) => (url.startsWith("/") ? `${basePath}${url.replace(/^\//, "")}` : url);
+const basicSearch = (query) =>
+  posts.filter((post) => {
+    const haystack = `${post.title} ${post.excerpt} ${post.content}`.toLowerCase();
+    return haystack.includes(normalize(query));
+  });
 
 function renderResults(items) {
   if (!items.length) {
@@ -155,24 +194,57 @@ function renderResults(items) {
   resultsEl.classList.add("active");
 }
 
-searchInput?.addEventListener("input", (event) => {
-  const query = normalize(event.target.value);
+function performSearch(rawQuery) {
+  const query = rawQuery.trim();
   if (!query) {
     resultsEl.classList.remove("active");
     resultsEl.innerHTML = "";
     return;
   }
 
-  const matches = posts.filter((post) => {
-    const haystack = `${post.title} ${post.excerpt} ${post.content}`.toLowerCase();
-    return haystack.includes(query);
-  });
+  let matches = [];
+  if (fuseInstance) {
+    matches = fuseInstance.search(query).map((res) => res.item);
+  } else {
+    matches = basicSearch(query);
+  }
   renderResults(matches);
-});
+}
+
+if (searchForm && searchInput) {
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    performSearch(searchInput.value);
+  });
+
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      performSearch(searchInput.value);
+    }
+  });
+
+  searchBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    performSearch(searchInput.value);
+  });
+}
 
 document.addEventListener("click", (event) => {
-  if (!resultsEl.contains(event.target) && event.target !== searchInput) {
+  if (!resultsEl.contains(event.target) && !searchForm?.contains(event.target)) {
     resultsEl.classList.remove("active");
   }
 });
+
+import("https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.js")
+  .then(({ default: Fuse }) => {
+    fuseInstance = new Fuse(posts, {
+      keys: ["title", "excerpt", "content"],
+      threshold: 0.35,
+      ignoreLocation: true,
+    });
+  })
+  .catch(() => {
+    fuseInstance = null;
+  });
 </script>

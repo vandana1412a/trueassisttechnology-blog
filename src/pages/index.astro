@@ -6,6 +6,9 @@ import PostList from "../components/PostList.astro";
 const sortedPosts = [...posts].sort(
   (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
 );
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <BaseLayout
@@ -20,34 +23,20 @@ const sortedPosts = [...posts].sort(
 
     <aside class="sidebar" aria-label="Sidebar">
       <div class="sidebar-card contact-card">
-        <h3>Contact Us</h3>
-        <div class="contact-item">
-          <span class="contact-icon" aria-hidden="true">A</span>
-          <p>
-            C-102 Devasandra Industrial Estate,<br />
-            Mahadevapura, Bengaluru,<br />
-            Karnataka - 560048
-          </p>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon" aria-hidden="true">P</span>
-          <a class="contact-link" href="https://wa.me/919900306443" aria-label="WhatsApp TrueAssist at +91 99003 06443">+91 99003 06443</a>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon" aria-hidden="true">E</span>
-          <a class="contact-link" href="mailto:hello@trueassistech.com">hello@trueassistech.com</a>
-        </div>
-        <div class="contact-actions">
-          <a class="btn whatsapp full" href="https://wa.me/919900306443" aria-label="Chat on WhatsApp">WhatsApp</a>
-          <a class="btn primary full" href="mailto:hello@trueassistech.com">Email</a>
+        <h3>Contact TrueAssist</h3>
+        <div class="contact-actions two-up">
+          <a class="btn whatsapp" href="https://wa.me/919900306443" aria-label="WhatsApp TrueAssist at +91 99003 06443">
+            WhatsApp Us
+          </a>
+          <a class="btn primary" href="mailto:hello@trueassistech.com">Email Us</a>
         </div>
       </div>
       <div class="sidebar-card">
         <h3>Popular Posts</h3>
         <ul class="sidebar-list">
-          <li><a href="/ramp-calculator">Ramp Calculator</a></li>
-          <li><a href="#">Wheelchair Ramps</a></li>
-          <li><a href="#">Portable ramp checklist</a></li>
+          <li><a href={`${base}ramp-calculator/`}>Ramp Calculator</a></li>
+          <li><a href={`${base}how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-sam-j-paramban/`}>TurnPlus Swivel Seat Story</a></li>
+          <li><a href={`${base}hydraulic-wheelchair-lifts-for-cars-vans-a-complete-guide-to-accessible-travel-in-india/`}>Hydraulic Wheelchair Lifts Guide</a></li>
         </ul>
       </div>
     </aside>
@@ -98,44 +87,14 @@ const sortedPosts = [...posts].sort(
     color: var(--link-hover);
   }
 
-  .contact-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.5rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .contact-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    background: rgba(69, 30, 93, 0.1);
-    color: #451e5d;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-
-  .contact-item p {
-    margin: 0;
-    color: #444;
-  }
-
-  .contact-link {
-    color: #451e5d;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .contact-link:hover { color: var(--link-hover); }
-
   .contact-actions {
     display: grid;
     gap: 0.5rem;
     margin-top: 0.75rem;
+  }
+
+  .contact-actions.two-up {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .btn {
@@ -162,6 +121,12 @@ const sortedPosts = [...posts].sort(
     background: #25d366;
     color: #0b3d19;
     border: none;
+  }
+
+  @media (max-width: 720px) {
+    .contact-actions.two-up {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 960px) {
