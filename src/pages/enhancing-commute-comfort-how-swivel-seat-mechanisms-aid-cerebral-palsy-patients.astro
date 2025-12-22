@@ -2,74 +2,78 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
 
-const metaTitle = "How TurnPlus Swivel Seat Can Change Lives: The Story of Mr. Sam J. Paramban";
+const metaTitle = "Enhancing Commute Comfort: How Swivel Seat Mechanisms Aid Cerebral Palsy Patients";
 const metaDescription =
-  "A real story of how the TurnPlus swivel seat can ease car transfers and reduce caregiver strain for Mr. Sam J. Paramban after a life-changing cardiac arrest.";
-const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-sam-j-paramban";
+  "How swivel seat mechanisms ease transfers, improve safety, and boost comfort for cerebral palsy patients during commutes.";
+const currentSlug = "enhancing-commute-comfort-how-swivel-seat-mechanisms-aid-cerebral-palsy-patients";
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const ogImage = `${base}logo.png`;
 ---
 
 <BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
+  <Fragment slot="head">
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
   <article class="article">
     <header class="article-head">
-      <p class="article-date">October 14, 2025 · by Vandana</p>
-      <h1>{metaTitle}</h1>
+      <p class="article-date">August 18, 2023 · by vivek</p>
+      <h1>Enhancing Commute Comfort: How Swivel Seat Mechanisms Aid Cerebral Palsy Patients</h1>
     </header>
 
     <div class="article-grid">
       <div class="article-body">
         <p>
-          When illness strikes, it affects more than just health—it reshapes daily life, routines, and even the smallest of
-          movements.
+          Cerebral palsy is a group of disorders that affect a person’s ability to move and control their muscles. It can
+          cause a wide range of symptoms, including muscle weakness, spasticity, and coordination problems. These symptoms
+          can make it difficult for people with cerebral palsy to get around, including during their commute.
         </p>
 
         <p>
-          Mr. Sam J. Paramban, Head of Operations at Tryzens India, was living an active professional life until a sudden
-          cardiac arrest changed everything. The incident caused severe brain damage, leading to loss of eyesight, memory,
-          and mobility. He is now bedridden, relying on constant care from his family.
+          Swivel seat mechanisms can help to make commuting more comfortable and easier for people with cerebral palsy.
+          These mechanisms allow the seat to rotate, so that the person can easily transfer from their wheelchair or walker
+          to the seat. They can also be used to position the person in a comfortable and supportive way.
         </p>
 
-        <h2>A Journey of Resilience</h2>
         <p>
-          After spending two months in KIMS Hospital, Thiruvananthapuram, and another four months in CMC Vellore, Mr. Sam
-          was discharged without major improvement. His family continues to take him for outpatient physiotherapy,
-          determined to give him every chance at recovery despite the heavy emotional and financial toll.
+          There are a few different types of swivel seat mechanisms available. Some are manual, while others are powered.
+          Manual swivel seat mechanisms are operated by hand, while powered swivel seat mechanisms are operated by a motor.
+          Powered swivel seat mechanisms are typically more expensive, but they can be easier to use, especially for people
+          with limited mobility.
         </p>
 
-        <h2>A Glimpse of Hope</h2>
         <p>
-          While at the hospital, the family noticed an Innova car fitted with the TurnPlus swivel seat—a special swivel seat
-          for car transfers designed to make entering and exiting a vehicle easier for people with mobility challenges. This
-          sight sparked a thought: Could this make life easier for Sam and his caregivers?
+          In addition to making commuting more comfortable, swivel seat mechanisms can also help to improve safety. By
+          allowing the person to easily transfer from their wheelchair or walker, they can reduce the risk of falls. They
+          can also help to prevent the person from becoming fatigued, which can be a major problem for people with cerebral
+          palsy.
         </p>
 
-        <h2>The Mobility Challenge</h2>
         <p>
-          Sam’s 6-foot-plus height and well-built frame make transfers into a car extremely difficult. Even with assistance,
-          the strain on both the patient and caregivers is immense. His family began exploring the possibility of using
-          TurnPlus, along with a portable ramp, but cost remained a concern due to ongoing medical expenses.
+          If you are a person with cerebral palsy, or if you know someone who is, a swivel seat mechanism can be a valuable
+          tool for making your commute easier and safer. Talk to your doctor or occupational therapist about whether a
+          swivel seat mechanism is right for you.
         </p>
 
-        <h2>Beyond Just a Product</h2>
-        <p>TurnPlus is more than a mechanism—it’s a bridge to independence and dignity. For people like Mr. Sam, it can mean:</p>
+        <p>Here are some additional benefits of using swivel seat mechanisms for cerebral palsy patients:</p>
         <ul>
-          <li>Less physical strain for caregivers</li>
-          <li>Safer and more comfortable transfers</li>
-          <li>The freedom to attend physiotherapy or family outings without stress</li>
+          <li>They can help to improve posture and alignment.</li>
+          <li>They can reduce muscle pain and fatigue.</li>
+          <li>They can make it easier to transfer from one surface to another.</li>
+          <li>They can provide a sense of security and stability.</li>
+          <li>They can help to reduce the risk of falls.</li>
         </ul>
-        <p>
-          For families across India, TurnPlus is one of the most practical swivel car seat for disabled in India solutions,
-          often called a wheelchair car seat India option. It’s more than hardware—it’s a lifeline.
-        </p>
 
-        <h2>Looking Ahead</h2>
         <p>
-          The family is also exploring innovations like a professional-grade turntable platform that could allow a
-          wheelchair user to stand, rotate, and transfer into a seat with ease—something our engineering team could
-          potentially design in the future.
-        </p>
-        <p>
-          Mobility is not a luxury—it’s a necessity. Stories like Mr. Sam’s remind us why we continue to innovate, customize,
-          and make mobility solutions for caregivers and users more affordable and adaptable.
+          If you are a cerebral palsy patient who is looking for ways to make your commute more comfortable and easier, a
+          swivel seat mechanism is a great option to consider. Talk to your doctor or occupational therapist to learn more
+          about how a swivel seat mechanism can help you.
         </p>
       </div>
 
@@ -164,7 +168,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
 
   h2 {
     color: #451e5d;
-    margin: 0.5rem 0 0.35rem;
+    margin: 0.35rem 0 0.15rem;
   }
 
   p {
@@ -174,7 +178,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
   }
 
   ul {
-    margin: 0;
+    margin: 0 0 0.5rem;
     padding-left: 1.2rem;
     color: var(--text-body);
   }

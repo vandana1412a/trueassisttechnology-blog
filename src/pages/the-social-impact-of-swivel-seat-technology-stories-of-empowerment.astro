@@ -2,74 +2,57 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
 
-const metaTitle = "How TurnPlus Swivel Seat Can Change Lives: The Story of Mr. Sam J. Paramban";
+const metaTitle = "The Social Impact of Swivel Seat Technology: Stories of Empowerment";
 const metaDescription =
-  "A real story of how the TurnPlus swivel seat can ease car transfers and reduce caregiver strain for Mr. Sam J. Paramban after a life-changing cardiac arrest.";
-const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-sam-j-paramban";
+  "A personal story of mobility regained with a swivel seat, highlighting dignity, independence, and the need for accessible taxis.";
+const currentSlug = "the-social-impact-of-swivel-seat-technology-stories-of-empowerment";
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const ogImage = `${base}logo.png`;
 ---
 
 <BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
+  <Fragment slot="head">
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
   <article class="article">
     <header class="article-head">
-      <p class="article-date">October 14, 2025 · by Vandana</p>
-      <h1>{metaTitle}</h1>
+      <p class="article-date">June 19, 2023 · by vivek</p>
+      <h1>The Social Impact of Swivel Seat Technology: Stories of Empowerment</h1>
     </header>
 
     <div class="article-grid">
       <div class="article-body">
+        <p>I am Dr Mrs.Meerabai Chandrasekar, retired professor from Coimbatore, Tamilnadu, India.</p>
+
         <p>
-          When illness strikes, it affects more than just health—it reshapes daily life, routines, and even the smallest of
-          movements.
+          I have undergone two knee replacement surgeries and a hip replacement surgery in the past seven years due to
+          severe Rheumatoid Arthritis. My mobility has become questionable and got my life arrested sitting at home.
         </p>
 
         <p>
-          Mr. Sam J. Paramban, Head of Operations at Tryzens India, was living an active professional life until a sudden
-          cardiac arrest changed everything. The incident caused severe brain damage, leading to loss of eyesight, memory,
-          and mobility. He is now bedridden, relying on constant care from his family.
+          A time came when I had to attend my son’s marriage and I was looking for a system to get into my car without
+          lifting my leg. I went through the Internet and contacted branded companies to get my car front seat into a
+          swivel one which would facilitate my entry into the car.
         </p>
 
-        <h2>A Journey of Resilience</h2>
         <p>
-          After spending two months in KIMS Hospital, Thiruvananthapuram, and another four months in CMC Vellore, Mr. Sam
-          was discharged without major improvement. His family continues to take him for outpatient physiotherapy,
-          determined to give him every chance at recovery despite the heavy emotional and financial toll.
+          I got affordable quote from Mr Anand Kutre, Bangalore. He changed my car seat mechanism and I feel easy to turn
+          my seat out and facilitate me to sit on it with much less effort. The handle that has been provided to lever the
+          seat inside is soft and smooth. Thanks to him for the timely help which he extended coming to our place without
+          us taking our car to his place.
         </p>
 
-        <h2>A Glimpse of Hope</h2>
         <p>
-          While at the hospital, the family noticed an Innova car fitted with the TurnPlus swivel seat—a special swivel seat
-          for car transfers designed to make entering and exiting a vehicle easier for people with mobility challenges. This
-          sight sparked a thought: Could this make life easier for Sam and his caregivers?
-        </p>
-
-        <h2>The Mobility Challenge</h2>
-        <p>
-          Sam’s 6-foot-plus height and well-built frame make transfers into a car extremely difficult. Even with assistance,
-          the strain on both the patient and caregivers is immense. His family began exploring the possibility of using
-          TurnPlus, along with a portable ramp, but cost remained a concern due to ongoing medical expenses.
-        </p>
-
-        <h2>Beyond Just a Product</h2>
-        <p>TurnPlus is more than a mechanism—it’s a bridge to independence and dignity. For people like Mr. Sam, it can mean:</p>
-        <ul>
-          <li>Less physical strain for caregivers</li>
-          <li>Safer and more comfortable transfers</li>
-          <li>The freedom to attend physiotherapy or family outings without stress</li>
-        </ul>
-        <p>
-          For families across India, TurnPlus is one of the most practical swivel car seat for disabled in India solutions,
-          often called a wheelchair car seat India option. It’s more than hardware—it’s a lifeline.
-        </p>
-
-        <h2>Looking Ahead</h2>
-        <p>
-          The family is also exploring innovations like a professional-grade turntable platform that could allow a
-          wheelchair user to stand, rotate, and transfer into a seat with ease—something our engineering team could
-          potentially design in the future.
-        </p>
-        <p>
-          Mobility is not a luxury—it’s a necessity. Stories like Mr. Sam’s remind us why we continue to innovate, customize,
-          and make mobility solutions for caregivers and users more affordable and adaptable.
+          Now with a help of walker and swivel car seat in our Honda Amaze car I am able to see the world outside. Best
+          wishes to him. There are many people who are not able to travel in taxis for want of such facilities. I feel such
+          special taxis are to be made available for elderly people to ease themselves while opting for taxis.
         </p>
       </div>
 
@@ -164,7 +147,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
 
   h2 {
     color: #451e5d;
-    margin: 0.5rem 0 0.35rem;
+    margin: 0.35rem 0 0.15rem;
   }
 
   p {
@@ -174,7 +157,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
   }
 
   ul {
-    margin: 0;
+    margin: 0 0 0.5rem;
     padding-left: 1.2rem;
     color: var(--text-body);
   }

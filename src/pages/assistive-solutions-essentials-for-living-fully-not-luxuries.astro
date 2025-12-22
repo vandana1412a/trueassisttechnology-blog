@@ -2,13 +2,25 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
 
-const metaTitle = "How TurnPlus Swivel Seat Can Change Lives: The Story of Mr. Sam J. Paramban";
+const metaTitle = "Assistive Solutions: Essentials for Living Fully, Not Luxuries";
 const metaDescription =
-  "A real story of how the TurnPlus swivel seat can ease car transfers and reduce caregiver strain for Mr. Sam J. Paramban after a life-changing cardiac arrest.";
-const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-sam-j-paramban";
+  "Why assistive solutions like swivel car seats, wheelchair ramps, and lifts are essential lifelines in India—not luxuries—providing safety, access, and independence.";
+const currentSlug = "assistive-solutions-essentials-for-living-fully-not-luxuries";
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const ogImage = `${base}logo.png`;
 ---
 
 <BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
+  <Fragment slot="head">
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
   <article class="article">
     <header class="article-head">
       <p class="article-date">October 14, 2025 · by Vandana</p>
@@ -18,58 +30,33 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
     <div class="article-grid">
       <div class="article-body">
         <p>
-          When illness strikes, it affects more than just health—it reshapes daily life, routines, and even the smallest of
-          movements.
+          Too often, people see assistive solutions as “extras.” But the truth is, assistive technology in India is not about
+          luxury—it’s about giving people equal access to everyday life.
         </p>
 
+        <h2>Busting the Myth</h2>
         <p>
-          Mr. Sam J. Paramban, Head of Operations at Tryzens India, was living an active professional life until a sudden
-          cardiac arrest changed everything. The incident caused severe brain damage, leading to loss of eyesight, memory,
-          and mobility. He is now bedridden, relying on constant care from his family.
+          For someone with mobility challenges, a handicap swivel car seat isn’t an accessory—it’s independence. For seniors,
+          an aluminum wheelchair ramp is not a gadget—it’s the difference between isolation and participation.
         </p>
 
-        <h2>A Journey of Resilience</h2>
-        <p>
-          After spending two months in KIMS Hospital, Thiruvananthapuram, and another four months in CMC Vellore, Mr. Sam
-          was discharged without major improvement. His family continues to take him for outpatient physiotherapy,
-          determined to give him every chance at recovery despite the heavy emotional and financial toll.
-        </p>
-
-        <h2>A Glimpse of Hope</h2>
-        <p>
-          While at the hospital, the family noticed an Innova car fitted with the TurnPlus swivel seat—a special swivel seat
-          for car transfers designed to make entering and exiting a vehicle easier for people with mobility challenges. This
-          sight sparked a thought: Could this make life easier for Sam and his caregivers?
-        </p>
-
-        <h2>The Mobility Challenge</h2>
-        <p>
-          Sam’s 6-foot-plus height and well-built frame make transfers into a car extremely difficult. Even with assistance,
-          the strain on both the patient and caregivers is immense. His family began exploring the possibility of using
-          TurnPlus, along with a portable ramp, but cost remained a concern due to ongoing medical expenses.
-        </p>
-
-        <h2>Beyond Just a Product</h2>
-        <p>TurnPlus is more than a mechanism—it’s a bridge to independence and dignity. For people like Mr. Sam, it can mean:</p>
+        <h2>What They Provide</h2>
         <ul>
-          <li>Less physical strain for caregivers</li>
-          <li>Safer and more comfortable transfers</li>
-          <li>The freedom to attend physiotherapy or family outings without stress</li>
+          <li>Rotating car seat India options make vehicle transfers safer.</li>
+          <li>Wheelchair lifts ensure access to higher floors.</li>
+          <li>Accessible living solutions like grab bars and ramps prevent accidents at home.</li>
         </ul>
+
+        <h2>Why It Matters</h2>
         <p>
-          For families across India, TurnPlus is one of the most practical swivel car seat for disabled in India solutions,
-          often called a wheelchair car seat India option. It’s more than hardware—it’s a lifeline.
+          When society views disability aids for seniors as essentials, not luxuries, homes and public spaces become
+          welcoming for all.
         </p>
 
-        <h2>Looking Ahead</h2>
+        <h2>Final Thought</h2>
         <p>
-          The family is also exploring innovations like a professional-grade turntable platform that could allow a
-          wheelchair user to stand, rotate, and transfer into a seat with ease—something our engineering team could
-          potentially design in the future.
-        </p>
-        <p>
-          Mobility is not a luxury—it’s a necessity. Stories like Mr. Sam’s remind us why we continue to innovate, customize,
-          and make mobility solutions for caregivers and users more affordable and adaptable.
+          From aluminum wheelchair ramp to handicap swivel car seats, these are not luxuries but lifelines. Assistive
+          solutions give people the power to live fully, not just survive.
         </p>
       </div>
 
@@ -88,7 +75,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
             </div>
             <div class="product-body">
               <p class="product-title">TurnPlus</p>
-              <p class="product-link">Swivel solution for easier entry/exit.</p>
+              <p class="product-link">Manual swivel seat for safer entry.</p>
             </div>
           </a>
 
@@ -103,7 +90,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
             </div>
             <div class="product-body">
               <p class="product-title">TurnPlus Electric</p>
-              <p class="product-link">Powered swivel seat convenience.</p>
+              <p class="product-link">Powered swivel convenience.</p>
             </div>
           </a>
 
@@ -142,6 +129,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
   .article-head h1 {
     margin: 0.35rem 0 0;
     color: #451e5d;
+    line-height: 1.2;
   }
 
   .article-date {
@@ -153,13 +141,14 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
   .article-grid {
     display: grid;
     grid-template-columns: 3fr 1.4fr;
-    gap: 1rem;
-    align-items: start;
+    gap: 1.25rem;
   }
 
   .article-body {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-body);
   }
 
   h2 {
@@ -181,14 +170,15 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
 
   .sidebar {
     position: sticky;
-    top: 80px;
+    top: 96px;
+    align-self: start;
   }
 
   .products-card {
     border: 1px solid var(--border);
     border-radius: 12px;
-    background: #fff;
-    padding: 0.9rem;
+    padding: 1rem;
+    background: #f9f9f9;
     display: grid;
     gap: 0.75rem;
   }
@@ -205,20 +195,22 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
     border-radius: 10px;
     padding: 0.6rem;
     text-decoration: none;
-    color: inherit;
-    background: #f9f9f9;
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .product-card:hover {
-    border-color: #451e5d;
+  .product-card:hover,
+  .product-card:focus-visible {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+    outline: none;
   }
 
   .video-frame {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    padding-top: 56.25%;
+    border-radius: 10px;
     overflow: hidden;
-    border-radius: 8px;
     background: #000;
   }
 
@@ -232,7 +224,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
 
   .product-body {
     display: grid;
-    gap: 0.15rem;
+    gap: 0.1rem;
   }
 
   .product-title {
@@ -244,10 +236,10 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
   .product-link {
     margin: 0;
     color: var(--secondary);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
     .article-grid {
       grid-template-columns: 1fr;
     }

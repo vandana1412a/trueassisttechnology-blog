@@ -2,74 +2,65 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
 
-const metaTitle = "How TurnPlus Swivel Seat Can Change Lives: The Story of Mr. Sam J. Paramban";
+const metaTitle = "How to Maintain Your Swivel Seat";
 const metaDescription =
-  "A real story of how the TurnPlus swivel seat can ease car transfers and reduce caregiver strain for Mr. Sam J. Paramban after a life-changing cardiac arrest.";
-const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-sam-j-paramban";
+  "Simple inspection, cleaning, lubrication, and storage tips to keep your Turnplus swivel seat reliable for years.";
+const currentSlug = "how-to-maintain-your-swivel-seat";
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const ogImage = `${base}logo.png`;
 ---
 
 <BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
+  <Fragment slot="head">
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
   <article class="article">
     <header class="article-head">
-      <p class="article-date">October 14, 2025 · by Vandana</p>
-      <h1>{metaTitle}</h1>
+      <p class="article-date">June 19, 2023 · by vivek</p>
+      <h1>How to Maintain Your Swivel Seat</h1>
     </header>
 
     <div class="article-grid">
       <div class="article-body">
         <p>
-          When illness strikes, it affects more than just health—it reshapes daily life, routines, and even the smallest of
-          movements.
+          The Turnplus swivel seat is a revolutionary product that makes it easier for people with disabilities to get in
+          and out of their cars. It is a manually operated fitting that does not require any maintenance. However, there
+          are a few things you can do to keep your Turnplus in good working condition:
         </p>
 
-        <p>
-          Mr. Sam J. Paramban, Head of Operations at Tryzens India, was living an active professional life until a sudden
-          cardiac arrest changed everything. The incident caused severe brain damage, leading to loss of eyesight, memory,
-          and mobility. He is now bedridden, relying on constant care from his family.
-        </p>
-
-        <h2>A Journey of Resilience</h2>
-        <p>
-          After spending two months in KIMS Hospital, Thiruvananthapuram, and another four months in CMC Vellore, Mr. Sam
-          was discharged without major improvement. His family continues to take him for outpatient physiotherapy,
-          determined to give him every chance at recovery despite the heavy emotional and financial toll.
-        </p>
-
-        <h2>A Glimpse of Hope</h2>
-        <p>
-          While at the hospital, the family noticed an Innova car fitted with the TurnPlus swivel seat—a special swivel seat
-          for car transfers designed to make entering and exiting a vehicle easier for people with mobility challenges. This
-          sight sparked a thought: Could this make life easier for Sam and his caregivers?
-        </p>
-
-        <h2>The Mobility Challenge</h2>
-        <p>
-          Sam’s 6-foot-plus height and well-built frame make transfers into a car extremely difficult. Even with assistance,
-          the strain on both the patient and caregivers is immense. His family began exploring the possibility of using
-          TurnPlus, along with a portable ramp, but cost remained a concern due to ongoing medical expenses.
-        </p>
-
-        <h2>Beyond Just a Product</h2>
-        <p>TurnPlus is more than a mechanism—it’s a bridge to independence and dignity. For people like Mr. Sam, it can mean:</p>
         <ul>
-          <li>Less physical strain for caregivers</li>
-          <li>Safer and more comfortable transfers</li>
-          <li>The freedom to attend physiotherapy or family outings without stress</li>
+          <li>
+            Inspect the mechanism regularly. Look for any signs of wear and tear, such as loose bolts or damaged components.
+            If you notice any problems, have them repaired by a qualified technician.
+          </li>
+          <li>Keep the mechanism clean. Wipe it down with a damp cloth after each use to remove dirt and debris.</li>
+          <li>Lubricate the mechanism. Use a light lubricant, such as WD-40, to keep the moving parts working smoothly.</li>
+          <li>Store the mechanism properly. When you are not using the Turnplus, store it in a dry, cool place.</li>
         </ul>
+
         <p>
-          For families across India, TurnPlus is one of the most practical swivel car seat for disabled in India solutions,
-          often called a wheelchair car seat India option. It’s more than hardware—it’s a lifeline.
+          By following these simple maintenance tips, you can help ensure that your Turnplus swivel seat mechanism will last
+          for many years to come.
         </p>
 
-        <h2>Looking Ahead</h2>
+        <p>Here are some additional tips for maintaining your Turnplus swivel seat mechanism:</p>
+        <ul>
+          <li>If you live in a coastal or cold region, you may need to lubricate the mechanism more frequently.</li>
+          <li>If you use the Turnplus frequently, you may need to replace the lubricant every year or two.</li>
+          <li>If you are ever unsure about how to maintain your Turnplus, consult the manufacturer’s instructions.</li>
+        </ul>
+
         <p>
-          The family is also exploring innovations like a professional-grade turntable platform that could allow a
-          wheelchair user to stand, rotate, and transfer into a seat with ease—something our engineering team could
-          potentially design in the future.
-        </p>
-        <p>
-          Mobility is not a luxury—it’s a necessity. Stories like Mr. Sam’s remind us why we continue to innovate, customize,
-          and make mobility solutions for caregivers and users more affordable and adaptable.
+          The Turnplus swivel seat is a valuable tool for people with disabilities. By following these simple maintenance
+          tips, you can help keep your Turnplus in good working condition and ensure that it continues to provide you with
+          years of reliable service.
         </p>
       </div>
 
@@ -164,7 +155,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
 
   h2 {
     color: #451e5d;
-    margin: 0.5rem 0 0.35rem;
+    margin: 0.35rem 0 0.15rem;
   }
 
   p {
@@ -174,7 +165,7 @@ const currentSlug = "how-turnplus-swivel-seat-can-change-lives-the-story-of-mr-s
   }
 
   ul {
-    margin: 0;
+    margin: 0 0 0.5rem;
     padding-left: 1.2rem;
     color: var(--text-body);
   }

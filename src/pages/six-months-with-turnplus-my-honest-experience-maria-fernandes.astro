@@ -1,0 +1,263 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RelatedPosts from "../components/RelatedPosts.astro";
+
+const metaTitle = "Six Months with TurnPlus: My Honest Experience – Maria Fernandes";
+const metaDescription =
+  "A senior citizen shares a six-month review of TurnPlus swivel seat in a Honda Jazz, covering ease of use, support, and regained independence.";
+const currentSlug = "six-months-with-turnplus-my-honest-experience-maria-fernandes";
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const ogImage = `${base}logo.png`;
+---
+
+<BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
+  <Fragment slot="head">
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
+  <article class="article">
+    <header class="article-head">
+      <p class="article-date">October 14, 2025 · by Vandana</p>
+      <h1>Six Months with TurnPlus: My Honest Experience – Maria Fernandes</h1>
+    </header>
+
+    <div class="article-grid">
+      <div class="article-body">
+        <p>
+          When mobility becomes a challenge, even the simplest tasks - like getting in and out of a car - can feel overwhelming. As a senior citizen living with partial paralysis, I needed a safe and reliable way to travel. That is why, in February 2024, I installed TurnPlus in my Honda Jazz, one of India’s most trusted car seats for disabled adults.
+        </p>
+
+        <h2>First Impressions</h2>
+        <p>
+          TurnPlus is designed for people who require car seat for handicapped adults or seniors with limited mobility. It allows the car seat to rotate and slide out, making it easier to sit down without struggling. For me, this was nothing short of life-changing.
+        </p>
+        <p>
+          When the seat slides out, it sits slightly higher because of the mechanism. I use a small stool to step up and sit comfortably. Once pushed back inside, the seat is still a little high, so taller people (like my husband) may need to bend slightly while entering. But for me, it worked beautifully.
+        </p>
+        <p>Most importantly, I no longer struggled to get in and out of the car - a problem that had limited my independence for months.</p>
+
+        <h2>Six-Month Update</h2>
+        <p>
+          Six months later, in August, I faced my first issue: the seat stopped sliding out as smoothly as before. For someone like me, who depends on this system every day, it was worrying.
+        </p>
+        <p>
+          I immediately contacted TrueAssistive Technology, the official provider of TurnPlus in India. I sent them a short video explaining the issue. To my relief, their response was immediate - they coordinated with their installation partner in Goa (where I live), and the problem was fixed quickly.
+        </p>
+        <p>This reassured me that TurnPlus is not just a swivel car seat for elderly users, but also backed by dependable service.</p>
+
+        <h2>What Changed in My Life</h2>
+        <ul>
+          <li>Easier car transfers: The swivel seat for car meant I no longer had to struggle or risk falling.</li>
+          <li>Safer travel: I felt secure entering and exiting the car without depending heavily on others.</li>
+          <li>Peace of mind: Even when a small technical issue occurred, TrueAssist’s quick support reassured me.</li>
+          <li>Independence restored: I could once again attend family gatherings, visit friends, and go for medical check-ups without stress.</li>
+        </ul>
+
+        <h2>Who Should Consider TurnPlus?</h2>
+        <p>TurnPlus is ideal for:</p>
+        <ul>
+          <li>Seniors with limited mobility</li>
+          <li>Families searching for new cars with swivel seats but needing a retrofit option</li>
+          <li>People looking for proven car seats for disabled adults</li>
+        </ul>
+
+        <h2>Final Thoughts</h2>
+        <p>
+          Looking back at my journey, I can confidently say that TurnPlus has made a huge difference in my life. Like any product, there may be small challenges, but what matters most is that it works - and the support team truly cares.
+        </p>
+        <p>
+          For those exploring car seat for handicapped adults or a swivel car seat for elderly, I wholeheartedly recommend it. It has made my car journeys easier, safer, and far more comfortable.
+        </p>
+      </div>
+
+      <aside class="sidebar" aria-label="Products">
+        <div class="products-card">
+          <h2>Products</h2>
+
+          <a class="product-card" href="https://www.trueassistech.com/products/turnplus" target="_blank" rel="noopener">
+            <div class="video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/nlMO30_RrKc"
+                title="TurnPlus video"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="product-body">
+              <p class="product-title">TurnPlus</p>
+              <p class="product-link">Manual swivel seat for safer entry and exit.</p>
+            </div>
+          </a>
+
+          <a class="product-card" href="https://www.trueassistech.com/products/turnplus-electric" target="_blank" rel="noopener">
+            <div class="video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/ytQ7nRd8rf4"
+                title="TurnPlus Electric video"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="product-body">
+              <p class="product-title">TurnPlus Electric</p>
+              <p class="product-link">Powered swivel convenience for effortless transfers.</p>
+            </div>
+          </a>
+
+          <a class="product-card" href="https://www.trueassistech.com/products/turnplus-accelerate" target="_blank" rel="noopener">
+            <div class="video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/-bSUnSfkD-8"
+                title="TurnPlus Accelerate video"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="product-body">
+              <p class="product-title">TurnPlus Accelerate</p>
+              <p class="product-link">Rapid, smooth swivel assistance for daily use.</p>
+            </div>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <RelatedPosts currentSlug={currentSlug} />
+</BaseLayout>
+
+<style>
+  .article {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .article-head h1 {
+    margin: 0.35rem 0 0;
+    color: #451e5d;
+    line-height: 1.2;
+  }
+
+  .article-date {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 3fr 1.4fr;
+    gap: 1.25rem;
+  }
+
+  .article-body {
+    display: grid;
+    gap: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-body, #333);
+  }
+
+  .article-body h2 {
+    margin: 0.25rem 0 0.2rem;
+    color: #451e5d;
+  }
+
+  .article-body ul {
+    padding-left: 1.1rem;
+    margin: 0.25rem 0 0.5rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 96px;
+    align-self: start;
+  }
+
+  .products-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    background: #f9f9f9;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .products-card h2 {
+    margin: 0;
+    color: #451e5d;
+  }
+
+  .product-card {
+    display: grid;
+    gap: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem;
+    text-decoration: none;
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .product-card:hover,
+  .product-card:focus-visible {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  .video-frame {
+    position: relative;
+    padding-top: 56.25%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .product-body {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .product-title {
+    margin: 0;
+    font-weight: 700;
+    color: #451e5d;
+  }
+
+  .product-link {
+    margin: 0;
+    color: var(--secondary, #818385);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 960px) {
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+    }
+  }
+</style>
