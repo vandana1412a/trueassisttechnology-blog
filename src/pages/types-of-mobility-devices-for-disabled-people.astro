@@ -1,0 +1,258 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RelatedPosts from "../components/RelatedPosts.astro";
+
+const metaTitle = "Types of mobility devices for disabled people";
+const metaDescription =
+  "Overview of wheelchairs, walkers, crutches, and canes, plus benefits, safety, and how to choose the right mobility device.";
+const currentSlug = "types-of-mobility-devices-for-disabled-people";
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const ogImage = `${base}logo.png`;
+---
+
+<BaseLayout title={metaTitle} description={metaDescription} headerVariant="solid">
+  <Fragment slot="head">
+    <meta property="og:title" content={metaTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
+  <article class="article">
+    <header class="article-head">
+      <p class="article-date">June 8, 2023 · by vivek</p>
+      <h1>Types of mobility devices for disabled people</h1>
+    </header>
+
+    <div class="article-grid">
+      <div class="article-body">
+        <p>
+          There are many different types of mobility devices available for disabled people, each designed to meet the
+          specific needs of the individual. Some of the most common types of mobility devices include:
+        </p>
+
+        <h2>Wheelchairs</h2>
+        <p>
+          Wheelchairs are a common mobility device for people with disabilities that limit their ability to walk. There
+          are many different types of wheelchairs available, including manual wheelchairs, powered wheelchairs, and
+          stand-up wheelchairs.
+        </p>
+
+        <h2>Walkers</h2>
+        <p>
+          Walkers are a type of mobility device that provides support for people who have difficulty walking. Walkers
+          come in a variety of styles, including standard walkers, rollators, and quad canes.
+        </p>
+
+        <h2>Crutches</h2>
+        <p>
+          Crutches are a type of mobility device that provides support for people who have difficulty walking. Crutches
+          come in a variety of styles, including underarm crutches, forearm crutches, and quad canes.
+        </p>
+
+        <h2>Canes</h2>
+        <p>
+          Canes are a type of mobility device that provides support for people who have difficulty walking. Canes come in
+          a variety of styles, including straight canes, quad canes, and walking sticks.
+        </p>
+
+        <p>
+          When choosing a mobility device, it is important to consider the individual’s needs and abilities. It is also
+          important to talk to a healthcare professional to get their recommendations.
+        </p>
+
+        <h2>Benefits of Using a Mobility Device</h2>
+        <p>Increased independence: Mobility devices can help people with disabilities to be more independent and mobile. This can lead to a better quality of life and increased participation in activities.</p>
+        <p>Improved safety: Mobility devices can help to improve safety by providing support and stability. This can be especially important for people who have difficulty walking or who are at risk of falls.</p>
+        <p>Reduced pain: Mobility devices can help to reduce pain by taking some of the weight off of the body. This can be especially helpful for people with conditions such as arthritis or back pain.</p>
+
+        <p>
+          There are many government programs that can help to pay for mobility devices. These programs may offer financial
+          assistance, tax breaks, or other forms of help. To find out more about these programs, you can contact your local
+          government or a disability organization.
+        </p>
+
+        <p>
+          Mobility devices can be purchased from a variety of sources, including medical supply stores, online retailers,
+          and some general retailers. When purchasing a mobility device, it is important to make sure that it is the right
+          size and type for the individual. It is also important to make sure that the device is properly fitted and
+          adjusted.
+        </p>
+
+        <h2>Tips for Using a Mobility Device Safely</h2>
+        <p>Always use a mobility device in a safe manner. This includes being aware of your surroundings and using caution when walking or moving around.</p>
+        <p>Inspect your mobility device regularly for any damage. If you find any damage, repair or replace the device immediately.</p>
+        <p>Keep your mobility device clean and dry. This will help to prevent it from becoming damaged or malfunctioning.</p>
+        <p>Store your mobility device in a safe place when not in use. This will help to prevent it from being damaged or lost.</p>
+
+        <p>
+          With careful planning and preparation, you can choose the right mobility device for your needs and use it safely
+          and effectively.
+        </p>
+      </div>
+
+      <aside class="sidebar" aria-label="Products">
+        <div class="products-card">
+          <h2>Products</h2>
+
+          <a class="product-card" href="https://www.trueassistech.com/products/swivel-seat" target="_blank" rel="noopener">
+            <div class="product-image">
+              <img src="https://www.trueassistech.com/assets/images/products/swivel-seat.jpg" alt="Swivel Seat product" loading="lazy" />
+            </div>
+            <div class="product-body">
+              <p class="product-title">Swivel Seat</p>
+              <p class="product-link">Assisted swivel entry and exit.</p>
+            </div>
+          </a>
+
+          <a class="product-card" href="https://www.trueassistech.com/products/wheelchair-ramp" target="_blank" rel="noopener">
+            <div class="product-image">
+              <img src="https://www.trueassistech.com/assets/images/products/wheelchair-ramp.jpg" alt="Wheelchair ramp product" loading="lazy" />
+            </div>
+            <div class="product-body">
+              <p class="product-title">Wheelchair Ramps</p>
+              <p class="product-link">Portable ramps for smooth entry.</p>
+            </div>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <RelatedPosts currentSlug={currentSlug} />
+</BaseLayout>
+
+<style>
+  .article {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .article-head h1 {
+    margin: 0.35rem 0 0;
+    color: #451e5d;
+  }
+
+  .article-date {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 600;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 3fr 1.4fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .article-body {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  h2 {
+    color: #451e5d;
+    margin: 0.35rem 0 0.15rem;
+  }
+
+  h3 {
+    color: #451e5d;
+    margin: 0.25rem 0 0.15rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-body);
+    line-height: 1.6;
+  }
+
+  ul {
+    margin: 0 0 0.5rem;
+    padding-left: 1.2rem;
+    color: var(--text-body);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 80px;
+  }
+
+  .products-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .products-card h2 {
+    margin: 0;
+    color: #451e5d;
+  }
+
+  .product-card {
+    display: grid;
+    gap: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    background: #f9f9f9;
+  }
+
+  .product-card:hover {
+    border-color: #451e5d;
+  }
+
+  .product-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(69, 30, 93, 0.08), rgba(69, 30, 93, 0.03));
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .product-body {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .product-title {
+    margin: 0;
+    font-weight: 700;
+    color: #451e5d;
+  }
+
+  .product-link {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 900px) {
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+    }
+  }
+</style>
