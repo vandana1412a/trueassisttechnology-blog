@@ -104,6 +104,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
           Note: Portable ramps can be max 6 ft. Longer ramps may be unsafe or unusable.
         </p>
         <div id="products" class="product-carousel" hidden>
+          <h3 class="products-title">Recommended Products</h3>
           <a class="product-card" href="https://www.trueassistech.com/products/ramplus-portable-suitcase-ramps" target="_blank">
             <div class="video-frame">
               <iframe src="https://www.youtube.com/embed/nILzXFC6yjA" title="RamPlus - Portable Suitcase Ramp" loading="lazy" allowfullscreen></iframe>
@@ -364,12 +365,12 @@ const base = import.meta.env.BASE_URL.endsWith("/")
 
   .product-carousel {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(220px, 1fr);
     gap: 0.75rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    scroll-snap-type: x mandatory;
+  }
+
+  .products-title {
+    margin: 0;
+    color: #451e5d;
   }
 
   .product-card {
@@ -380,7 +381,6 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     border: 1px solid var(--border);
     background: #fff;
     text-decoration: none;
-    scroll-snap-align: start;
   }
 
   .product-art {
