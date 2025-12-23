@@ -27,6 +27,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
           />
           <button type="submit" id="site-search-btn" aria-label="Run search">Search</button>
         </div>
+        <div class="search-results" id="search-results" role="listbox" aria-live="polite"></div>
       </form>
     </div>
 
@@ -94,6 +95,49 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     border-color: #5a2677;
   }
 
+  .search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+    display: none;
+    z-index: 40;
+  }
+
+  .search-results.active {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .search-item {
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+  }
+
+  .search-item:hover,
+  .search-item:focus-within {
+    border-color: var(--border);
+    background: rgba(69, 30, 93, 0.05);
+  }
+
+  .search-item h4 {
+    margin: 0 0 0.2rem;
+    font-size: 0.95rem;
+    color: #451e5d;
+  }
+
+  .search-item p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
   @media (max-width: 900px) {
     .header-bar {
       flex-direction: column;
@@ -123,6 +167,7 @@ const searchBtn = document.getElementById("site-search-btn");
 const listContainer = document.querySelector("[data-post-list]");
 const cards = listContainer ? Array.from(listContainer.querySelectorAll(".post-row")) : [];
 const noResults = document.querySelector("[data-no-results]");
+const resultsEl = document.getElementById("search-results");
 
 const normalize = (value) => value.toLowerCase().trim();
 
@@ -143,10 +188,51 @@ function filterPosts(rawQuery) {
   }
 }
 
+function renderDropdown(items) {
+  if (!resultsEl) return;
+  if (!items.length) {
+    resultsEl.innerHTML = "<div class='search-item'><p>No results found.</p></div>";
+    resultsEl.classList.add("active");
+    return;
+  }
+  resultsEl.innerHTML = items
+    .map(
+      (item) => `
+        <div class="search-item" role="option">
+          <a href="${item.link}">
+            <h4>${item.title}</h4>
+            <p>${item.excerpt}</p>
+          </a>
+        </div>
+      `
+    )
+    .join("");
+  resultsEl.classList.add("active");
+}
+
+function dropdownSearch(rawQuery) {
+  if (!resultsEl) return;
+  const term = normalize(rawQuery);
+  if (!term) {
+    resultsEl.classList.remove("active");
+    resultsEl.innerHTML = "";
+    return;
+  }
+  const matches = posts.filter((post) => {
+    const haystack = `${post.title} ${post.content}`.toLowerCase();
+    return haystack.includes(term);
+  });
+  renderDropdown(matches);
+}
+
 if (searchForm && searchInput) {
   const runSearch = (event) => {
     event.preventDefault();
-    filterPosts(searchInput.value);
+    if (listContainer && cards.length) {
+      filterPosts(searchInput.value);
+    } else {
+      dropdownSearch(searchInput.value);
+    }
   };
   searchForm.addEventListener("submit", runSearch);
   searchInput.addEventListener("keydown", (event) => {
@@ -154,7 +240,19 @@ if (searchForm && searchInput) {
       runSearch(event);
     }
   });
-  searchInput.addEventListener("input", () => filterPosts(searchInput.value));
+  searchInput.addEventListener("input", () => {
+    if (listContainer && cards.length) {
+      filterPosts(searchInput.value);
+    } else {
+      dropdownSearch(searchInput.value);
+    }
+  });
   searchBtn?.addEventListener("click", runSearch);
 }
+
+document.addEventListener("click", (event) => {
+  if (!resultsEl?.contains(event.target) && !searchForm?.contains(event.target)) {
+    resultsEl?.classList.remove("active");
+  }
+});
 </script>
