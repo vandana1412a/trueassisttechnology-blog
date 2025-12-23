@@ -1,5 +1,5 @@
 ---
-const { posts = [], heading = "Latest Articles" } = Astro.props;
+const { posts = [], heading = "Latest Posts" } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -10,10 +10,13 @@ const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, ""
   <div class="posts-head">
     <h2>{heading}</h2>
   </div>
-  <div class="posts-list">
+  <div class="posts-list" data-post-list>
     {posts.map((post) => (
-      <article class="post-row">
-        <div class="thumb" aria-hidden="true"></div>
+      <article
+        class="post-row"
+        data-title={post.title.toLowerCase()}
+        data-content={(post.content || "").toLowerCase()}
+      >
         <div class="post-body">
           <p class="post-date">{post.date}</p>
           <h3>{post.title}</h3>
@@ -23,6 +26,7 @@ const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, ""
       </article>
     ))}
   </div>
+  <p class="no-results" data-no-results hidden>No results found.</p>
 </section>
 
 <style>
@@ -42,22 +46,17 @@ const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, ""
   }
 
   .post-row {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 0.75rem;
+    display: block;
     border: 1px solid var(--border);
     border-radius: 12px;
     background: #fff;
     box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
-  .thumb {
-    background: linear-gradient(135deg, rgba(69, 30, 93, 0.08), rgba(69, 30, 93, 0.04));
+    padding: 0.85rem 1rem;
   }
 
   .post-body {
-    padding: 0.75rem 0.9rem;
+    display: grid;
+    gap: 0.35rem;
   }
 
   .post-date {
@@ -81,9 +80,9 @@ const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, ""
     color: var(--link-hover);
   }
 
-  @media (max-width: 960px) {
-    .post-row {
-      grid-template-columns: 1fr;
-    }
+  .no-results {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 700;
   }
 </style>

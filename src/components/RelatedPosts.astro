@@ -6,7 +6,12 @@ const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
-const related = posts.filter((post) => post.slug !== currentSlug).slice(0, 3);
+const current = posts.find((post) => post.slug === currentSlug);
+const related = current?.category
+  ? posts
+      .filter((post) => post.slug !== currentSlug && post.category === current.category)
+      .slice(0, 3)
+  : [];
 ---
 
 {related.length ? (
