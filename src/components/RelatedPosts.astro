@@ -12,9 +12,10 @@ const related = current?.category
       .filter((post) => post.slug !== currentSlug && post.category === current.category)
       .slice(0, 3)
   : [];
+const hasRelated = related.length > 0;
 ---
 
-{related.length ? (
+{hasRelated ? (
   <section class="related" aria-label="Related posts">
     <div class="related-grid">
       <div class="related-list">
@@ -37,7 +38,18 @@ const related = current?.category
       </aside>
     </div>
   </section>
-) : null}
+) : (
+  <section class="related contact-only" aria-label="Contact TrueAssist">
+    <aside class="contact-card" aria-label="Contact TrueAssist">
+      <h3>Contact TrueAssist</h3>
+      <p class="muted">Have a question about accessibility solutions? Reach out to our team.</p>
+      <div class="contact-actions">
+        <a class="btn whatsapp" href="https://wa.me/919900306443" aria-label="WhatsApp Us">WhatsApp Us</a>
+        <a class="btn email" href="mailto:hello@trueassistech.com">Email Us</a>
+      </div>
+    </aside>
+  </section>
+)}
 
 <style>
   .related {
@@ -126,6 +138,15 @@ const related = current?.category
   .btn.email {
     background: #451e5d;
     color: #fff;
+  }
+
+  .contact-only {
+    margin-top: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    background: #fff;
+    box-shadow: var(--shadow);
   }
 
   @media (max-width: 900px) {
