@@ -6,7 +6,6 @@ const isTransparent = variant === "transparent";
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
-const toUrl = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
 ---
 
 <header class:list={["site-header", isTransparent ? "transparent" : "solid"]}>
@@ -95,6 +94,8 @@ const toUrl = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}`
     color: #fff;
     font-weight: 700;
     cursor: pointer;
+    width: 44px;
+    height: 44px;
   }
 
   .search button:hover,
@@ -180,7 +181,7 @@ const noResults = document.querySelector("[data-no-results]");
 const resultsEl = document.getElementById("search-results");
 
 const normalize = (value) => value.toLowerCase().trim();
-const toFullUrl = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
+const toFullUrl = (url) => (url.startsWith("/") ? `${import.meta.env.BASE_URL}${url.replace(/^\//, "")}` : url);
 
 function filterPosts(rawQuery) {
   if (!listContainer || !cards.length) return;
@@ -236,28 +237,21 @@ function dropdownSearch(rawQuery) {
   renderDropdown(matches);
 }
 
+function runSearch(event) {
+  event?.preventDefault();
+  if (listContainer && cards.length) {
+    filterPosts(searchInput.value);
+  } else {
+    dropdownSearch(searchInput.value);
+  }
+}
+
 if (searchForm && searchInput) {
-  const runSearch = (event) => {
-    event.preventDefault();
-    if (listContainer && cards.length) {
-      filterPosts(searchInput.value);
-    } else {
-      dropdownSearch(searchInput.value);
-    }
-  };
   searchForm.addEventListener("submit", runSearch);
   searchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      runSearch(event);
-    }
+    if (event.key === "Enter") runSearch(event);
   });
-  searchInput.addEventListener("input", () => {
-    if (listContainer && cards.length) {
-      filterPosts(searchInput.value);
-    } else {
-      dropdownSearch(searchInput.value);
-    }
-  });
+  searchInput.addEventListener("input", () => runSearch());
   searchBtn?.addEventListener("click", runSearch);
 }
 
@@ -271,10 +265,6 @@ const params = new URLSearchParams(window.location.search);
 const initialQuery = params.get("search");
 if (initialQuery && searchInput) {
   searchInput.value = initialQuery;
-  if (listContainer && cards.length) {
-    filterPosts(initialQuery);
-  } else {
-    dropdownSearch(initialQuery);
-  }
+  runSearch();
 }
 </script>
