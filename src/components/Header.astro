@@ -169,8 +169,10 @@ const listContainer = document.querySelector("[data-post-list]");
 const cards = listContainer ? Array.from(listContainer.querySelectorAll(".post-row")) : [];
 const noResults = document.querySelector("[data-no-results]");
 const resultsEl = document.getElementById("search-results");
+const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 
 const normalize = (value) => value.toLowerCase().trim();
+const toUrl = (url) => (url.startsWith("/") ? `${basePath}${url.replace(/^\//, "")}` : url);
 const toUrl = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
 
 function filterPosts(rawQuery) {
@@ -201,7 +203,7 @@ function renderDropdown(items) {
     .map(
       (item) => `
         <div class="search-item" role="option">
-          <a href="${withBase(item.link)}">
+          <a href="${item.link}">
             <h4>${item.title}</h4>
             <p>${item.excerpt}</p>
           </a>
@@ -257,4 +259,15 @@ document.addEventListener("click", (event) => {
     resultsEl?.classList.remove("active");
   }
 });
+
+const params = new URLSearchParams(window.location.search);
+const initialQuery = params.get("search");
+if (initialQuery && searchInput) {
+  searchInput.value = initialQuery;
+  if (listContainer && cards.length) {
+    filterPosts(initialQuery);
+  } else {
+    dropdownSearch(initialQuery);
+  }
+}
 </script>
