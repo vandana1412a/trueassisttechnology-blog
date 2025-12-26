@@ -73,29 +73,32 @@ const base = import.meta.env.BASE_URL.endsWith("/")
   }
 
   .search-box {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 0.5rem;
+    position: relative;
+    display: block;
   }
 
   .search input {
     padding: 0.6rem 0.85rem;
+    padding-right: 2.5rem;
     border-radius: 999px;
     border: 1px solid var(--border);
     width: 100%;
   }
 
   .search button {
-    padding: 0.45rem 0.75rem;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     border-radius: 50%;
     border: 1px solid #451e5d;
     background: #451e5d;
     color: #fff;
     font-weight: 700;
     cursor: pointer;
-    width: 44px;
-    height: 44px;
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
   }
 
   .search button:hover,
@@ -151,15 +154,6 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     .header-bar {
       flex-direction: row;
       align-items: center;
-    }
-
-    .search-box {
-      grid-template-columns: 1fr;
-    }
-
-    .search button {
-      width: 44px;
-      height: 44px;
     }
   }
 
