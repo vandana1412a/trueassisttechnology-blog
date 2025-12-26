@@ -6,6 +6,7 @@ const isTransparent = variant === "transparent";
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
+const withBase = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
 ---
 
 <header class:list={["site-header", isTransparent ? "transparent" : "solid"]}>
@@ -170,6 +171,7 @@ const noResults = document.querySelector("[data-no-results]");
 const resultsEl = document.getElementById("search-results");
 
 const normalize = (value) => value.toLowerCase().trim();
+const toUrl = (url) => (url.startsWith("/") ? `${base}${url.replace(/^\//, "")}` : url);
 
 function filterPosts(rawQuery) {
   if (!listContainer || !cards.length) return;
@@ -199,7 +201,7 @@ function renderDropdown(items) {
     .map(
       (item) => `
         <div class="search-item" role="option">
-          <a href="${item.link}">
+          <a href="${withBase(item.link)}">
             <h4>${item.title}</h4>
             <p>${item.excerpt}</p>
           </a>
@@ -222,7 +224,7 @@ function dropdownSearch(rawQuery) {
     const haystack = `${post.title} ${post.content}`.toLowerCase();
     return haystack.includes(term);
   });
-  renderDropdown(matches);
+  renderDropdown(matches.map((item) => ({ ...item, link: toUrl(item.link) })));
 }
 
 if (searchForm && searchInput) {
